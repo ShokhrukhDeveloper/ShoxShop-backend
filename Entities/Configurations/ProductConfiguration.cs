@@ -1,0 +1,1 @@
+namespace ShoxShop.Entities.Configurations;
