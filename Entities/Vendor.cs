@@ -15,6 +15,6 @@ public class Vendor : EntityBase
     public bool? Blocked { get; set; }
 
     public ulong AdminId { get; set; }
-    public Admin MyProperty { get; set; }
+    public Admin Admin { get; set; }
     public ICollection<VendorSession> VendorSessions { get; set; }
 }
