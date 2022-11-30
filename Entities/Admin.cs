@@ -1,4 +1,5 @@
 namespace ShoxShop.Entities;
+
 public class Admin:EntityBase
 {
     public ulong AdminId { get; set; }
@@ -9,4 +10,5 @@ public class Admin:EntityBase
     public string PhoneNumber { get; set; }
     public LoginAdmin AdminLogin { get; set; }
     public ICollection<Vendor> Vendors { get; set; }
+    public virtual ICollection<AdminSession> AdminSessions { get; set; }
 }

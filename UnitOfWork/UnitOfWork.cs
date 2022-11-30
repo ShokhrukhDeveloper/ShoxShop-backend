@@ -41,7 +41,7 @@ public class UnitOfWork : IUnitOfWork
         throw new NotImplementedException();
     }
 
-    public async Task CommitAsync()
+    public  Task CommitAsync()
     {
         throw new NotImplementedException();
     }
@@ -51,7 +51,7 @@ public class UnitOfWork : IUnitOfWork
         throw new NotImplementedException();
     }
 
-    public async Task RollbackAsync()
+    public Task RollbackAsync()
     {
         throw new NotImplementedException();
     }
