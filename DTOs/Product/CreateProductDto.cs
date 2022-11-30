@@ -1,0 +1,11 @@
+namespace ShoxShop.Dtos.Product;
+public class CreateProductDto
+{
+    public string Name { get; set; }   
+    public string CoverImage { get; set; } // must be file
+    public string Description { get; set; }
+    public int Quantity { get; set; }
+    public decimal Price { get; set; }
+    public bool Visiblity { get; set; }
+    public ulong SubCategoryId { get; set; }
+}
