@@ -5,6 +5,6 @@ public class LoginUser : EntityBase
     public string UserName { get; set; }
     public string Password { get; set; }
     public string PasswordHash { get; set; }
-    public ulong UserId { get; set; }
-    public virtual User User { get; set; }
+    public ulong? UserId { get; set; }
+    public User User { get; set; }
 }
