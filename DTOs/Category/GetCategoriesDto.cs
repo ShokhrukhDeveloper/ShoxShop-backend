@@ -1,6 +1,6 @@
 namespace ShoxShop.Dtos.Category;
-public class GetCategories
+public class GetCategoriesDto
 {
     
-    public List<Category> MyProperty { get; set; }
+    public List<CategoryDto> MyProperty { get; set; }
 }

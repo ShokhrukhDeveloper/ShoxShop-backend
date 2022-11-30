@@ -1,5 +1,5 @@
 namespace ShoxShop.Dtos.Category;
-public class Category
+public class CategoryDto
 {
     public ulong CategoryId { get; set; }
     public string  Name { get; set; }
