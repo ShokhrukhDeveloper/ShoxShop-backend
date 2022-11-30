@@ -24,11 +24,6 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         =>  _dbContext.Set<TEntity>().Find(id);
 
     public IQueryable<TEntity> GetEntities()
-    {
-        throw new NotImplementedException();
-    }
-
-    public IQueryable<TEntity> GetEntity()
         =>_dbContext.Set<TEntity>();
 
     public async ValueTask<TEntity> Remove(TEntity entity)
