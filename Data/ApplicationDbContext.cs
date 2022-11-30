@@ -25,4 +25,7 @@ public class ApplicationDbContext :DbContext
    public DbSet<UserSession> UserSessions { get; set; }
    public DbSet<Vendor> Vendors { get; set; }
    public DbSet<VendorSession> VendorSessions { get; set; }
+   public DbSet<LoginAdmin> LoginAdmins { get; set; }
+   public DbSet<LoginVendor> LoginVendors { get; set; }
+   public DbSet<LoginUser> LoginUsers { get; set; }
 }
