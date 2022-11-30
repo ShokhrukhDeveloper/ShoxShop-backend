@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ShoxShop.Entities.Configurations;
-public class LoginVendorConfiguration :   ConfigurationBase<LoginVendor>
+public class LoginVendorConfiguration : ConfigurationBase<LoginVendor>
 {
     public override void Configure(EntityTypeBuilder<LoginVendor> builder)
     {
