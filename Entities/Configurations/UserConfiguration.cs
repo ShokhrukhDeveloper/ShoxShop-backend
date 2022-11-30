@@ -13,6 +13,10 @@ public class UserConfiguration : ConfigurationBase<User>
             .WithOne(q=>q.User)
             .HasForeignKey(k=>k.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+        builder.HasMany<Favoirate>(m=>m.Favoirates)
+            .WithOne(o=>o.User)
+            .HasForeignKey(f=>f.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
         
     }
 }

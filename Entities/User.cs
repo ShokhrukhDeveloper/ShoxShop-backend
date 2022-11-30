@@ -11,7 +11,6 @@ public class User : EntityBase
     public string UserName { get; set; }
     public string Image { get; set; }
     public bool? Blocked { get; set; }
-    public Favoirate Favoirate { get; set; }
-
+    public ICollection<Favoirate> Favoirates { get; set; }
     public ICollection<UserSession> UserSessions { get; set; }
 }
