@@ -18,5 +18,6 @@ public class UserConfiguration : ConfigurationBase<User>
             .HasForeignKey(f=>f.UserId)
             .OnDelete(DeleteBehavior.Cascade);
         
+        
     }
 }

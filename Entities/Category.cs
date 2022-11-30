@@ -1,5 +1,5 @@
 namespace ShoxShop.Entities;
-public class Category:EntityBase
+public class Category : EntityBase
 {
     public ulong CategoryId { get; set; }
     public string  Name { get; set; }
