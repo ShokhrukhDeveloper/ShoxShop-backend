@@ -1,5 +1,6 @@
-namespace ShoxShop.Repositories;
-public interface IUnitOfwork
+namespace ShoxShop.UnitOfWork;
+using ShoxShop.Repositories;
+public interface IUnitOfWork
 {
     IAdminRepository Admins { get;}
     ICategoryRepository AdminCategory { get;}

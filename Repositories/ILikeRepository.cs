@@ -1,7 +1,7 @@
 using ShoxShop.Entities;
 
 namespace ShoxShop.Repositories;
-interface ILikeRepository : IGenericRepository<Like>
+public interface ILikeRepository : IGenericRepository<Like>
 {
     
 }
