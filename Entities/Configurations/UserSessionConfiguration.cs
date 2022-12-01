@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ShoxShop.Entities.Configurations;
-public class AdminSessionConfiguration : ConfigurationBase<UserSession>
+public class UserSessionConfiguration : ConfigurationBase<UserSession>
 {
     public override void Configure(EntityTypeBuilder<UserSession> builder)
     {
