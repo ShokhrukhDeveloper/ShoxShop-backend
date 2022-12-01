@@ -16,17 +16,18 @@ public class AdminController : ControllerBase
         _adminService=unitOfWork;
     }
     [HttpPost]
-    public IActionResult LoginAdmin()
+    public async Task<IActionResult> LoginAdmin(string phone,string password)
     {
+        var ser=new AdminService(_adminService);
         try
         {
-           return Ok(_adminService.AdminRepository.GetEntities.ToList());
+            var res=await ser.LoginAdmin(phone,password);
+           return Ok(res);
         }
         catch (System.Exception e)
         {
             
             throw;
         }
-        return Ok();
     }
 }

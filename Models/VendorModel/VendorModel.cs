@@ -1,4 +1,5 @@
 namespace ShoxShop.Model;
+#nullable disable warnings
 public class VendorModel 
 {
     public ulong VendorId { get; set; }

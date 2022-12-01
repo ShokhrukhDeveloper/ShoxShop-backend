@@ -1,5 +1,5 @@
 using ShoxShop.Entities;
-
+#nullable disable warnings
 namespace ShoxShop.Data.Seed;
 public static class Seed
 {

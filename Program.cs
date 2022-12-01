@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using ShoxShop.Data;
 using ShoxShop.Data.Seed;
 using ShoxShop.UnitOfWork;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

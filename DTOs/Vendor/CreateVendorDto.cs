@@ -1,4 +1,5 @@
 namespace ShoxShop.Dtos.Vendor;
+#nullable disable warnings
 public class CreateVendorDto
 {
     public string FirstName { get; set; }

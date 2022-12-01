@@ -1,5 +1,5 @@
 namespace ShoxShop.UnitOfWork;
-
+#pragma warning restore
 using System.Threading.Tasks;
 using ShoxShop.Data;
 using ShoxShop.Repositories;
