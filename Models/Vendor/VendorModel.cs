@@ -1,5 +1,5 @@
 namespace ShoxShop.Model;
-public class Vendor 
+public class VendorModel 
 {
     public ulong VendorId { get; set; }
     public string FirstName { get; set; }

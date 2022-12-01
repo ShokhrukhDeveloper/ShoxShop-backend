@@ -4,9 +4,13 @@ using ShoxShop.Model;
 namespace ShoxShop.Services.Vendor;
 public interface IVendorService
 {
-    ValueTask<VendorModel> CreateVendor(CreateVendorDto createVendor);
-    ValueTask<VendorModel> UpdateVendor(UpdateVendorDto createVendor);
-    ValueTask<VendorModel> GetVendorById(ulong Id);
-    ValueTask<Result<List<VendorModel>>> GetAll(ushort Limit,uint Page);
+    ValueTask<Result<VendorModel>> CreateVendor(CreateVendorDto createVendor);
+    ValueTask<Result<VendorModel>> UpdateVendor(UpdateVendorDto createVendor);
+    ValueTask<Result<VendorModel>> GetVendorById(ulong Id);
+    ValueTask<Result<VendorSessionModel>> LoginVendor(VendorLoginModel vendorLogin);
+    ValueTask<Result<List<VendorSessionModel>>> GetAllVendorSession(ulong VendorId);
+    ValueTask<Result<List<VendorModel>>> GetAll(ushort Limit=10,uint Page=1);
     ValueTask<Result<List<VendorModel>>> Search(string SearchText);
+
+    
 }
