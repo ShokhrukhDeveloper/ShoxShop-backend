@@ -2,8 +2,9 @@ namespace ShoxShop.UnitOfWork;
 using ShoxShop.Repositories;
 public interface IUnitOfWork
 {
-    IAdminRepository Admins { get;}
-    ICategoryRepository AdminCategory { get;}
+    IAdminRepository AdminRepository { get;}
+    IAdminSessionRepository AdminSessionRepository { get;}
+    ICategoryRepository CategoryRepository { get;}
     ICommentRepository CommentRepository { get;}
     IFavoirateRepository FavoirateRepository { get;}
     IImageRepository ImageRepository { get;}
@@ -17,7 +18,7 @@ public interface IUnitOfWork
     IUserRepository UserRepository {get;}
     IUserSessionReposritory UserSessionReposritory {get;}
     IVendorRepository VendorRepository {get;}
-    IVendorSessionReposiroy VendorSessionReposiroy {get;}
+    IVendorSessionRepository VendorSessionRepository {get;}
     void Commit();
     void Rollback();
     Task CommitAsync();
