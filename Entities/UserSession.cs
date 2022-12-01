@@ -2,7 +2,7 @@ namespace ShoxShop.Entities;
 public class UserSession : EntityBase
 {
     public ulong UserSessionId { get; set; }
-    public string Token { get; set; }
+    public string AccessToken { get; set; }
     public string? DeviceInfo { get; set; }
     public string? IPAddress { get; set; }
     public string? RefreshToken { get; set; }

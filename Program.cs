@@ -6,8 +6,8 @@ using ShoxShop.UnitOfWork;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+
 // Add DbConext
 var connString=builder.Configuration.GetConnectionString("DefaultConnectionString");
 builder.Services.AddDbContext<ApplicationDbContext>(

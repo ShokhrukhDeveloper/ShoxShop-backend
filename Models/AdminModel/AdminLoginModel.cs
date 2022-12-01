@@ -1,8 +1,8 @@
 namespace ShoxShop.Model;
-public class AdminLoginModel
+public class AdminSessionModel
 {
 public ulong AdminSessionId { get; set; }
-    public string? Token { get; set; }
+    public string? AccessToken { get; set; }
     public string? DeviceInfo { get; set; }
     public string? IPAddress { get; set; }
     public string? RefreshToken { get; set; }
