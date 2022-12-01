@@ -6,6 +6,10 @@ namespace ShoxShop.Services.Admin;
 public class AdminService : IAdminService
 {
     private readonly IUnitOfWork _unitOFWork;
+    public AdminService(IUnitOfWork unitOFWork)
+    {
+        _unitOFWork=unitOFWork;
+    }
     public ValueTask CreateAdmin(AdminCreateDto adminCreateDto)
     {
         throw new NotImplementedException();

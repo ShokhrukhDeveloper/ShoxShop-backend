@@ -10,23 +10,23 @@ public class UnitOfWork : IUnitOfWork
     {
         _dbContext=dbContext;
     }
-    private IAdminRepository _AdminRepository ;
-    private ICategoryRepository _CategoryRepository;
-    private ICommentRepository _CommentRepository;
-    private IAdminSessionRepository _AdminSessionRepository;
-    private IFavoirateRepository _FavoirateRepository;
-    private IImageRepository _ImageRepository;
-    private ILikeRepository _LikeRepository;
-    private ILocationRepository _LocationRepository;
-    private ILoginAdminRepository _LoginAdminRepository;
-    private ILoginUserRepository _LoginUserRepository;
-    private ILoginVendorRepository _LoginVendorRepository;
-    private IProductRepository _ProductRepository;
-    private ISubCategoryRepository _SubCategoryRepository;
-    private IUserRepository _UserRepository;
-    private IUserSessionReposritory _UserSessionReposritory;
-    private IVendorRepository _VendorRepository;
-    private IVendorSessionRepository _VendorSessionRepository;
+    private IAdminRepository? _AdminRepository ;
+    private ICategoryRepository? _CategoryRepository;
+    private ICommentRepository? _CommentRepository;
+    private IAdminSessionRepository? _AdminSessionRepository;
+    private IFavoirateRepository? _FavoirateRepository;
+    private IImageRepository? _ImageRepository;
+    private ILikeRepository? _LikeRepository;
+    private ILocationRepository? _LocationRepository;
+    private ILoginAdminRepository? _LoginAdminRepository;
+    private ILoginUserRepository? _LoginUserRepository;
+    private ILoginVendorRepository? _LoginVendorRepository;
+    private IProductRepository? _ProductRepository;
+    private ISubCategoryRepository? _SubCategoryRepository;
+    private IUserRepository? _UserRepository;
+    private IUserSessionReposritory? _UserSessionReposritory;
+    private IVendorRepository? _VendorRepository;
+    private IVendorSessionRepository? _VendorSessionRepository;
     //
     //
     //
