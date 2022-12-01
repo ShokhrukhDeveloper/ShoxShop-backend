@@ -10,5 +10,6 @@ public class Admin:EntityBase
     public string PhoneNumber { get; set; }
     public LoginAdmin AdminLogin { get; set; }
     public ICollection<Vendor> Vendors { get; set; }
+    public ICollection<Banner> Banners { get; set; }
     public virtual ICollection<AdminSession> AdminSessions { get; set; }
 }

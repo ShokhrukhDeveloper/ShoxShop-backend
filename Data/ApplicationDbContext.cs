@@ -13,6 +13,7 @@ public class ApplicationDbContext :DbContext
     modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
    }
    public DbSet<Admin> Admins { get; set; }
+   public DbSet<Banner> Banners { get; set; }
    public DbSet<AdminSession> AdminSessions { get; set; }
    public DbSet<Category> Categories { get; set; }
    public DbSet<Comment> Comments { get; set; }

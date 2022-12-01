@@ -8,6 +8,9 @@ public class FavoirateConfiguration : ConfigurationBase<Favoirate>
         base.Configure(builder);
         builder.HasKey(k=>k.FavoirateId);
         builder.Property(p=>p.FavoirateId).ValueGeneratedOnAdd();
+        builder.HasOne(o=>o.User)
+            .WithMany(u=>u.Favoirates)
+            .HasForeignKey(k=>k.UserId);
         
     }
 }
