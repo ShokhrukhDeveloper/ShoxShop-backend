@@ -1,7 +1,0 @@
-C:\Users\Shokhrukh\Desktop\app\ShoxShop\obj\Debug\net7.0\ShoxShop.csproj.AssemblyReference.cache
-C:\Users\Shokhrukh\Desktop\app\ShoxShop\obj\Debug\net7.0\ShoxShop.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Shokhrukh\Desktop\app\ShoxShop\obj\Debug\net7.0\ShoxShop.AssemblyInfoInputs.cache
-C:\Users\Shokhrukh\Desktop\app\ShoxShop\obj\Debug\net7.0\ShoxShop.AssemblyInfo.cs
-C:\Users\Shokhrukh\Desktop\app\ShoxShop\obj\Debug\net7.0\ShoxShop.csproj.CoreCompileInputs.cache
-C:\Users\Shokhrukh\Desktop\app\ShoxShop\obj\Debug\net7.0\ShoxShop.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Shokhrukh\Desktop\app\ShoxShop\obj\Debug\net7.0\ShoxShop.MvcApplicationPartsAssemblyInfo.cache

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ShoxShop.Migrations
 {
     /// <inheritdoc />
-    public partial class some : Migration
+    public partial class nit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,7 +21,7 @@ namespace ShoxShop.Migrations
                     LastName = table.Column<string>(type: "TEXT", nullable: true),
                     BirthDate = table.Column<DateTime>(type: "TEXT", nullable: true),
                     Image = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
@@ -36,9 +36,9 @@ namespace ShoxShop.Migrations
                 {
                     CategoryId = table.Column<ulong>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Image = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Image = table.Column<string>(type: "TEXT", nullable: false),
                     AdminId = table.Column<ulong>(type: "INTEGER", nullable: false),
                     Visiblity = table.Column<bool>(type: "INTEGER", nullable: false),
                     Delete = table.Column<bool>(type: "INTEGER", nullable: true),
@@ -56,13 +56,13 @@ namespace ShoxShop.Migrations
                 {
                     UserId = table.Column<ulong>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
-                    LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
-                    UserName = table.Column<string>(type: "TEXT", nullable: true),
-                    Image = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
+                    Address = table.Column<string>(type: "TEXT", nullable: false),
+                    UserName = table.Column<string>(type: "TEXT", nullable: false),
+                    Image = table.Column<string>(type: "TEXT", nullable: false),
                     Blocked = table.Column<bool>(type: "INTEGER", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
@@ -73,14 +73,40 @@ namespace ShoxShop.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AdminSessions",
+                columns: table => new
+                {
+                    AdminSessionId = table.Column<ulong>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Token = table.Column<string>(type: "TEXT", nullable: true),
+                    DeviceInfo = table.Column<string>(type: "TEXT", nullable: true),
+                    IPAddress = table.Column<string>(type: "TEXT", nullable: true),
+                    RefreshToken = table.Column<string>(type: "TEXT", nullable: true),
+                    Expires = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    AdminId = table.Column<ulong>(type: "INTEGER", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AdminSessions", x => x.AdminSessionId);
+                    table.ForeignKey(
+                        name: "FK_AdminSessions_Admins_AdminId",
+                        column: x => x.AdminId,
+                        principalTable: "Admins",
+                        principalColumn: "AdminId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LoginAdmins",
                 columns: table => new
                 {
                     Id = table.Column<ulong>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    AdminName = table.Column<string>(type: "TEXT", nullable: true),
-                    Password = table.Column<string>(type: "TEXT", nullable: true),
-                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
+                    Phone = table.Column<string>(type: "TEXT", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", nullable: false),
+                    PasswordHash = table.Column<string>(type: "TEXT", nullable: false),
                     AdminId = table.Column<ulong>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
@@ -102,14 +128,14 @@ namespace ShoxShop.Migrations
                 {
                     VendorId = table.Column<ulong>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
-                    LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "TEXT", nullable: true),
                     Email = table.Column<string>(type: "TEXT", nullable: true),
-                    Phone = table.Column<string>(type: "TEXT", nullable: true),
+                    Phone = table.Column<string>(type: "TEXT", nullable: false),
                     Address = table.Column<string>(type: "TEXT", nullable: true),
                     Image = table.Column<string>(type: "TEXT", nullable: true),
-                    MarketName = table.Column<string>(type: "TEXT", nullable: true),
+                    MarketName = table.Column<string>(type: "TEXT", nullable: false),
                     Blocked = table.Column<bool>(type: "INTEGER", nullable: true),
                     Latitude = table.Column<double>(type: "REAL", nullable: true),
                     Longitude = table.Column<double>(type: "REAL", nullable: true),
@@ -134,10 +160,10 @@ namespace ShoxShop.Migrations
                 {
                     SubCategoryId = table.Column<ulong>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
                     AdminId = table.Column<ulong>(type: "INTEGER", nullable: false),
-                    Image = table.Column<string>(type: "TEXT", nullable: true),
+                    Image = table.Column<string>(type: "TEXT", nullable: false),
                     Visiblity = table.Column<bool>(type: "INTEGER", nullable: false),
                     Delete = table.Column<bool>(type: "INTEGER", nullable: true),
                     CetegoryId = table.Column<ulong>(type: "INTEGER", nullable: false),
@@ -184,10 +210,10 @@ namespace ShoxShop.Migrations
                 {
                     Id = table.Column<ulong>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    UserName = table.Column<string>(type: "TEXT", nullable: true),
-                    Password = table.Column<string>(type: "TEXT", nullable: true),
-                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<ulong>(type: "INTEGER", nullable: true),
+                    UserName = table.Column<string>(type: "TEXT", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", nullable: false),
+                    PasswordHash = table.Column<string>(type: "TEXT", nullable: false),
+                    UserId = table.Column<ulong>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
@@ -208,7 +234,7 @@ namespace ShoxShop.Migrations
                 {
                     UserSessionId = table.Column<ulong>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Token = table.Column<string>(type: "TEXT", nullable: true),
+                    Token = table.Column<string>(type: "TEXT", nullable: false),
                     DeviceInfo = table.Column<string>(type: "TEXT", nullable: true),
                     IPAddress = table.Column<string>(type: "TEXT", nullable: true),
                     RefreshToken = table.Column<string>(type: "TEXT", nullable: true),
@@ -234,9 +260,9 @@ namespace ShoxShop.Migrations
                 {
                     Id = table.Column<ulong>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    VendorName = table.Column<string>(type: "TEXT", nullable: true),
-                    Password = table.Column<string>(type: "TEXT", nullable: true),
-                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
+                    VendorName = table.Column<string>(type: "TEXT", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", nullable: false),
+                    PasswordHash = table.Column<string>(type: "TEXT", nullable: false),
                     VendorId = table.Column<ulong>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
@@ -258,10 +284,10 @@ namespace ShoxShop.Migrations
                 {
                     VendorSessionId = table.Column<ulong>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Token = table.Column<string>(type: "TEXT", nullable: true),
-                    DeviceInfo = table.Column<string>(type: "TEXT", nullable: true),
-                    IPAddress = table.Column<string>(type: "TEXT", nullable: true),
-                    RefreshToken = table.Column<string>(type: "TEXT", nullable: true),
+                    Token = table.Column<string>(type: "TEXT", nullable: false),
+                    DeviceInfo = table.Column<string>(type: "TEXT", nullable: false),
+                    IPAddress = table.Column<string>(type: "TEXT", nullable: false),
+                    RefreshToken = table.Column<string>(type: "TEXT", nullable: false),
                     Expires = table.Column<DateTime>(type: "TEXT", nullable: true),
                     VendorId = table.Column<ulong>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -284,9 +310,9 @@ namespace ShoxShop.Migrations
                 {
                     ProductId = table.Column<ulong>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    CoverImage = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    CoverImage = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
                     Quantity = table.Column<int>(type: "INTEGER", nullable: false),
                     Price = table.Column<decimal>(type: "TEXT", nullable: false),
                     Visiblity = table.Column<bool>(type: "INTEGER", nullable: false),
@@ -327,8 +353,8 @@ namespace ShoxShop.Migrations
                     CommentId = table.Column<ulong>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<ulong>(type: "INTEGER", nullable: false),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
-                    Message = table.Column<string>(type: "TEXT", nullable: true),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Message = table.Column<string>(type: "TEXT", nullable: false),
                     ProductId = table.Column<ulong>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
@@ -341,6 +367,12 @@ namespace ShoxShop.Migrations
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comments_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -378,9 +410,9 @@ namespace ShoxShop.Migrations
                 {
                     ImageId = table.Column<ulong>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
-                    Desription = table.Column<string>(type: "TEXT", nullable: true),
+                    ImageUrl = table.Column<string>(type: "TEXT", nullable: false),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Desription = table.Column<string>(type: "TEXT", nullable: false),
                     ProductId = table.Column<ulong>(type: "INTEGER", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "TEXT", nullable: true)
@@ -419,9 +451,19 @@ namespace ShoxShop.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_AdminSessions_AdminId",
+                table: "AdminSessions",
+                column: "AdminId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comments_ProductId",
                 table: "Comments",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_UserId",
+                table: "Comments",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Favoirates_ProductId",
@@ -506,6 +548,9 @@ namespace ShoxShop.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AdminSessions");
+
             migrationBuilder.DropTable(
                 name: "Comments");
 

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ShoxShop.Data;
+using ShoxShop.Data.Seed;
 using ShoxShop.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,7 +29,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+Seed.Init(app);
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

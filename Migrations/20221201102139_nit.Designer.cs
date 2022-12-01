@@ -11,8 +11,8 @@ using ShoxShop.Data;
 namespace ShoxShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221130120622_some")]
-    partial class some
+    [Migration("20221201102139_nit")]
+    partial class nit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,7 @@ namespace ShoxShop.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -50,6 +51,43 @@ namespace ShoxShop.Migrations
                     b.HasKey("AdminId");
 
                     b.ToTable("Admins");
+                });
+
+            modelBuilder.Entity("ShoxShop.Entities.AdminSession", b =>
+                {
+                    b.Property<ulong>("AdminSessionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<ulong>("AdminId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DeviceInfo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("Expires")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("IPAddress")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("AdminSessionId");
+
+                    b.HasIndex("AdminId");
+
+                    b.ToTable("AdminSessions");
                 });
 
             modelBuilder.Entity("ShoxShop.Entities.Category", b =>
@@ -68,12 +106,15 @@ namespace ShoxShop.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -97,12 +138,14 @@ namespace ShoxShop.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Message")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<ulong>("ProductId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -114,6 +157,8 @@ namespace ShoxShop.Migrations
                     b.HasKey("CommentId");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -155,15 +200,18 @@ namespace ShoxShop.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Desription")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ImageUrl")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<ulong>("ProductId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -239,16 +287,19 @@ namespace ShoxShop.Migrations
                     b.Property<ulong>("AdminId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("AdminName")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -272,18 +323,22 @@ namespace ShoxShop.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<ulong?>("UserId")
+                        .IsRequired()
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -304,9 +359,11 @@ namespace ShoxShop.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -316,6 +373,7 @@ namespace ShoxShop.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("VendorName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -336,6 +394,7 @@ namespace ShoxShop.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CoverImage")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
@@ -345,9 +404,11 @@ namespace ShoxShop.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<decimal>("Price")
@@ -398,12 +459,15 @@ namespace ShoxShop.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -426,6 +490,7 @@ namespace ShoxShop.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool?>("Blocked")
@@ -438,21 +503,26 @@ namespace ShoxShop.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("UserId");
@@ -482,6 +552,7 @@ namespace ShoxShop.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Token")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -522,12 +593,14 @@ namespace ShoxShop.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Image")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double?>("Latitude")
@@ -537,9 +610,11 @@ namespace ShoxShop.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("MarketName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -562,18 +637,22 @@ namespace ShoxShop.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DeviceInfo")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("Expires")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("IPAddress")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("RefreshToken")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Token")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -589,6 +668,17 @@ namespace ShoxShop.Migrations
                     b.ToTable("VendorSessions");
                 });
 
+            modelBuilder.Entity("ShoxShop.Entities.AdminSession", b =>
+                {
+                    b.HasOne("ShoxShop.Entities.Admin", "Admin")
+                        .WithMany("AdminSessions")
+                        .HasForeignKey("AdminId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Admin");
+                });
+
             modelBuilder.Entity("ShoxShop.Entities.Comment", b =>
                 {
                     b.HasOne("ShoxShop.Entities.Product", "Product")
@@ -597,7 +687,15 @@ namespace ShoxShop.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ShoxShop.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ShoxShop.Entities.Favoirate", b =>
@@ -668,7 +766,8 @@ namespace ShoxShop.Migrations
                     b.HasOne("ShoxShop.Entities.User", "User")
                         .WithOne("LoginUser")
                         .HasForeignKey("ShoxShop.Entities.LoginUser", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -757,7 +856,10 @@ namespace ShoxShop.Migrations
 
             modelBuilder.Entity("ShoxShop.Entities.Admin", b =>
                 {
-                    b.Navigation("AdminLogin");
+                    b.Navigation("AdminLogin")
+                        .IsRequired();
+
+                    b.Navigation("AdminSessions");
 
                     b.Navigation("Vendors");
                 });
@@ -787,16 +889,19 @@ namespace ShoxShop.Migrations
                 {
                     b.Navigation("Favoirates");
 
-                    b.Navigation("Location");
+                    b.Navigation("Location")
+                        .IsRequired();
 
-                    b.Navigation("LoginUser");
+                    b.Navigation("LoginUser")
+                        .IsRequired();
 
                     b.Navigation("UserSessions");
                 });
 
             modelBuilder.Entity("ShoxShop.Entities.Vendor", b =>
                 {
-                    b.Navigation("LoginVendor");
+                    b.Navigation("LoginVendor")
+                        .IsRequired();
 
                     b.Navigation("VendorSessions");
                 });
