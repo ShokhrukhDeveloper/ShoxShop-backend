@@ -7,7 +7,7 @@ public class VendorSession : EntityBase
     public string DeviceInfo { get; set; }
     public string IPAddress { get; set; }
     public string RefreshToken { get; set; }
-    public DateTime Expires { get; set; }
+    public DateTime? Expires { get; set; }
     public ulong VendorId { get; set;}
     public Vendor Vendor { get; set; }
 }
