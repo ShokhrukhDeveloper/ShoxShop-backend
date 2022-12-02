@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using ShoxShop.Data;
 using ShoxShop.Data.Seed;
+using ShoxShop.Services.Admin;
+using ShoxShop.Services.Vendor;
 using ShoxShop.UnitOfWork;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 
 // Add UnitOfWork
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+
+// Add Services
+builder.Services.AddScoped<IAdminService,AdminService>();
+builder.Services.AddScoped<IVendorService,VendorService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

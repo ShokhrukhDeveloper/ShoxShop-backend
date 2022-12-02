@@ -1,4 +1,6 @@
 namespace ShoxShop.Entities;
+#pragma warning disable
+
 public class Vendor : EntityBase
 {
     public ulong VendorId { get; set; }
