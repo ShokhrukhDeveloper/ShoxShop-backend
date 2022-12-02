@@ -5,7 +5,8 @@ public class AdminModel
     public string? LastName { get; set; }
     public DateTime? BirthDate { get; set; }
     public string? Image { get; set; }
-    public string PhoneNumber { get; set; }
+    public string? PhoneNumber { get; set; }
+    ICollection<AdminSessionModel>? AdminSessions{get;set;}
 
 
     
