@@ -2,7 +2,7 @@ using ShoxShop.Dtos.SubCategory;
 using ShoxShop.Model;
 
 namespace ShoxShop.Services.SubCategory;
-public interface ISubCategorySerivce
+public interface ISubCategoryService
 {
    ValueTask<Result<SubCategoryModel>> CreateSubCategory(ulong adminId,ulong CategoryId,CreateSubCategoryDto subCategoryDto); 
    ValueTask<Result<SubCategoryModel>> UpdateSubCategory(ulong subCategoryId,CreateSubCategoryDto subCategory);
