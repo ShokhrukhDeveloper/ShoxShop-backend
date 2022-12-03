@@ -2,8 +2,8 @@ namespace ShoxShop.Model;
 public class Result
 {
     public bool IsSuccess { get; set; }
-    public uint CurrentPageIndex { get; set; }
-    public uint PageCount { get; set; }
+    public int CurrentPageIndex { get; set; }
+    public int PageCount { get; set; }
     public string? ErrorMessage { get; set; }
     public Result(bool isSuccess) => IsSuccess = isSuccess;
     public Result(string? errorMessage) => ErrorMessage = errorMessage;
