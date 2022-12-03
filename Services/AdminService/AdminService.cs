@@ -1,17 +1,21 @@
 using Microsoft.EntityFrameworkCore;
+using ShoxShop.Const;
 using ShoxShop.Dtos.Admin;
 using ShoxShop.Entities;
 using ShoxShop.Model;
+using ShoxShop.Services.JWT;
 using ShoxShop.UnitOfWork;
 
 namespace ShoxShop.Services.Admin;
 public partial class AdminService : IAdminService
 {
+    private readonly IJWTService _jWTService;
     private readonly IUnitOfWork _unitOFWork;
     private readonly ILogger<AdminService> _logger;
 
-    public AdminService(IUnitOfWork unitOFWork,ILogger<AdminService> logger)
+    public AdminService(IUnitOfWork unitOFWork,ILogger<AdminService> logger,IJWTService jWTService)
     {
+        _jWTService=jWTService;
         _unitOFWork=unitOFWork;
         _logger=logger;
     }
@@ -113,10 +117,11 @@ public partial class AdminService : IAdminService
                     ErrorMessage="Error Admin not found",
                 };
              }
+             var token=_jWTService.GenerateToken(new(Id:admin.AdminId,Role:Roles.Admin));
              var session= await _unitOFWork.AdminSessionRepository.AddAsync(
                     new(){
-                        AccessToken="AccessToken",
-                        RefreshToken="RefreshToken",
+                        AccessToken=token,
+                        RefreshToken=token,
                         AdminId=admin.AdminId,
                         Expires=DateTime.Now,
                         IPAddress="12.10.11.22",

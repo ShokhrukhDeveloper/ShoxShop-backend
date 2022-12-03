@@ -35,6 +35,7 @@ public partial class VendorService : IVendorService
                     DateOfBirth=createVendor.DateOfBirth,
                     AdminId=AdminId,
                     MarketName=createVendor.MarketName,
+                    Phone=createVendor.Phone
                 }
             );
             var login = _unitOfWork.LoginVendorRepository.AddAsync(
@@ -189,14 +190,14 @@ public partial class VendorService : IVendorService
         }
     }
 
-    public async ValueTask<Result<VendorSessionModel>> LoginVendor(VendorLoginModel vendorLogin)
+    public async ValueTask<Result<VendorSessionModel>> LoginVendor(string Phone,string Password)
     {
         try
         {
             var login = _unitOfWork
                     .LoginVendorRepository
                     .GetEntities
-                    .FirstOrDefault(w=>w.PhoneNumber==vendorLogin.Phone);
+                    .FirstOrDefault(w=>w.PhoneNumber==Phone);
             if (login is null)
             {
                 await _unitOfWork.RollbackAsync();
@@ -205,7 +206,7 @@ public partial class VendorService : IVendorService
                     ErrorMessage="Given phone number not found"
                 };
             }
-            if(login.Password!=vendorLogin.Password)
+            if(login.Password!=Password)
             {
                 return new(false)
                 {

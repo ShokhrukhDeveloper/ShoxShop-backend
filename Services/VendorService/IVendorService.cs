@@ -7,7 +7,7 @@ public interface IVendorService
     ValueTask<Result<VendorModel>> CreateVendor(ulong AdminId,CreateVendorDto createVendor);
     ValueTask<Result<VendorModel>> UpdateVendor(ulong VendorId,UpdateVendorDto createVendor);
     ValueTask<Result<VendorModel>> GetVendorById(ulong Id);
-    ValueTask<Result<VendorSessionModel>> LoginVendor(VendorLoginModel vendorLogin);
+    ValueTask<Result<VendorSessionModel>> LoginVendor(string phone, string password);
     ValueTask<Result<VendorSessionModel>> DeleteVendorSession(ulong VendorId,ulong SesssionId);
     ValueTask<Result<List<VendorSessionModel>>> GetAllVendorSession(ulong VendorId);
     ValueTask<Result<List<VendorModel>>> GetAll(ushort Limit=10,int Page=1);
