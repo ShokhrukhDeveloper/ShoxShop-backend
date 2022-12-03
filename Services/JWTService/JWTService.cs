@@ -25,8 +25,9 @@ public class JWTService : IJWTService
              return new()
              {
                 Id=ulong.Parse((claims.FirstOrDefault(w=>w.Type==ClaimTypes.NameIdentifier)
-                ?? throw new NullReferenceException("Jwt key is null")).Value),
-                Role=(claims.FirstOrDefault(r=>r.Type==ClaimTypes.Role) ?? throw new NullReferenceException("Jwt key is null")).Value
+                ?? throw new NullReferenceException("Jwt Id is null")).Value),
+                Role=(claims.FirstOrDefault(r=>r.Type==ClaimTypes.Role) 
+                ?? throw new NullReferenceException("Jwt Role is null")).Value
              };
         }
         catch (System.Exception)
@@ -44,14 +45,14 @@ public class JWTService : IJWTService
         var securityKey= new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
         var credentials= new SigningCredentials(securityKey,SecurityAlgorithms.HmacSha256);
         var claims= new[]{
-            new Claim("Id",claim.Id.ToString()),
+            new Claim(ClaimTypes.NameIdentifier,claim.Id.ToString()),
             new Claim(ClaimTypes.Role,claim.Role),
         };
         var token = new JwtSecurityToken(
             issuer,
             audience,
             claims,
-            expires:DateTime.Now.AddDays(1),
+            expires:DateTime.Now.AddDays(10),
             signingCredentials:credentials
             );
         return new JwtSecurityTokenHandler().WriteToken(token);

@@ -7,7 +7,11 @@ using ShoxShop.Data;
 using ShoxShop.Data.Seed;
 using ShoxShop.Services.Admin;
 using ShoxShop.Services.Vendor;
+using ShoxShop.Services.Category;
 using ShoxShop.UnitOfWork;
+using ShoxShop.Services.SubCategory;
+using ShoxShop.Services.JWT;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -43,8 +47,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 
 // Add Services
+builder.Services.AddScoped<IJWTService,JWTService>();
 builder.Services.AddScoped<IAdminService,AdminService>();
 builder.Services.AddScoped<IVendorService,VendorService>();
+builder.Services.AddScoped<ICategoryService,CategoryService>();
+builder.Services.AddScoped<ISubCategoryService,SubCategoryService>();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
