@@ -1,4 +1,5 @@
 namespace ShoxShop.Entities;
+#pragma warning disable
 public class Category : EntityBase
 {
     public ulong CategoryId { get; set; }
