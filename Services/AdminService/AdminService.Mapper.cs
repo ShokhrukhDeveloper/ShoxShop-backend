@@ -12,7 +12,9 @@ public partial class AdminService
             AdminId=session.AdminId,
             Expires=session.Expires,
             AdminSessionId=session.AdminSessionId,
-            IPAddress=session.IPAddress
+            IPAddress=session.IPAddress,
+            CreatedAt=session.CreatedAt,
+            UpdatedAt=session.UpdatedAt
         };
     AdminModel ToModelAdmin(Entities.Admin admin)
         =>new()
@@ -22,6 +24,7 @@ public partial class AdminService
             LastName=admin.LastName,
             Image=admin.Image,
             BirthDate=admin.BirthDate,
-            
+            CreatedAt=admin.CreatedAt,
+            UpdatedAt=admin.UpdatedAt
         };
 }

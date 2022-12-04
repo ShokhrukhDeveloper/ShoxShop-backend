@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShoxShop.Const;
 using ShoxShop.Dtos.Vendor;
+using ShoxShop.Services.JWT;
 using ShoxShop.Services.Vendor;
 
 namespace ShoxShop.Controllers;
@@ -8,23 +11,29 @@ namespace ShoxShop.Controllers;
 public class VendorController : ControllerBase
 {
     private readonly IVendorService _vendorService;
+    private readonly IJWTService _jWTService;
 
-    public VendorController(IVendorService vendorService)
+    public VendorController(IVendorService vendorService,IJWTService jWTService)
     {
         _vendorService=vendorService;
+        _jWTService=jWTService;
     }
     
     [HttpPost]
-    public async Task<IActionResult> CreateController(CreateVendorDto vendorDto)
+    [Authorize(Roles=Roles.Vendor)]
+    public async Task<IActionResult> CreateVendor(CreateVendorDto vendorDto)
     {
         try
         {
-            var result = await _vendorService.CreateVendor(1,vendorDto);
-            // if (!result.IsSuccess)
-            // {
-            //     return 
-            // }
-            return Ok(result);
+            var data=_jWTService.Authenticate(HttpContext)!;
+            
+
+            var result = await _vendorService.CreateVendor(data.Id,vendorDto);
+            if (!result.IsSuccess)
+            {
+                return BadRequest(result);
+            }
+            return Ok(data);
         }
         catch (System.Exception)
         {

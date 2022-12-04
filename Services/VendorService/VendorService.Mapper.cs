@@ -25,7 +25,7 @@ public partial class VendorService
         {
             VendorSessionId=session.VendorId,
             VendorId=session.VendorId,
-            Token=session.AccessToken,
+            AccessToken=session.AccessToken,
             RefreshToken=session.RefreshToken,
             Expires=session.Expires,
             DeviceInfo=session.DeviceInfo,

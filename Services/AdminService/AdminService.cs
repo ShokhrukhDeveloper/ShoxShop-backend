@@ -97,7 +97,39 @@ public partial class AdminService : IAdminService
         }
     }
 
-    public async ValueTask<Result<AdminSessionModel>> LoginAdmin(string PhoneNumber, string Password)
+    public async ValueTask<Result<List<AdminSessionModel>>> GetAllAdminSession(ulong AdminId, ushort Limit, int Page)
+    {
+        try
+        {
+            var query= _unitOFWork
+                    .AdminSessionRepository
+                    .Find(e=>e.AdminId==AdminId);
+            var count=query.Count();
+            var totalPage= (int)Math.Ceiling(count/(double)Limit);
+            var session=query
+                    .Skip((Page-1)*Limit)
+                    .Take(Limit)
+                    .ToList();
+            await _unitOFWork.RollbackAsync();
+            return new(true)
+            {
+                Data=session.Select(ToModelSession).ToList(),
+                PageCount=totalPage,
+                CurrentPageIndex=Page
+            };
+        }
+        catch (System.Exception e)
+        {
+            
+            _logger.LogError($"Error occured at: {nameof(GetAllAdminSession)} Error Message: {e.Message}");
+            return new(false)
+            {
+                ErrorMessage="Error occured server please contact support "
+            };
+        }
+    }
+
+    public async ValueTask<Result<AdminSessionModel>> LoginAdmin(string PhoneNumber, string Password,HttpContext context)
     {
         try
         {
@@ -120,12 +152,12 @@ public partial class AdminService : IAdminService
              var token=_jWTService.GenerateToken(new(Id:admin.AdminId,Role:Roles.Admin));
              var session= await _unitOFWork.AdminSessionRepository.AddAsync(
                     new(){
-                        AccessToken=token,
-                        RefreshToken=token,
+                        AccessToken="token",
+                        RefreshToken="token",
                         AdminId=admin.AdminId,
                         Expires=DateTime.Now,
-                        IPAddress="12.10.11.22",
-                        DeviceInfo="Andoid 12"
+                        IPAddress=$"{context.Connection.RemoteIpAddress?.ToString()}",
+                        DeviceInfo=$"{context.GetServerVariable("HTTP_USER_AGENT")}"
                     });
                 if (session is null)
                 {

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace ShoxShop.Dtos.Admin;
-public class Login
+public class LoginDto
 {
     [MaxLength(13)]
     [MinLength(13)]

@@ -133,17 +133,25 @@ public partial class VendorService : IVendorService
         }
     }
 
-    public async ValueTask<Result<List<VendorSessionModel>>> GetAllVendorSession(ulong VendorId)
+    public async ValueTask<Result<List<VendorSessionModel>>> GetAllVendorSession(ulong VendorId, ushort Limit=10,int Page=1)
     {
         try
         {
-            var result= _unitOfWork
-                        .VendorSessionRepository
-                        .Find(w=>w.VendorId==VendorId).ToList();
+            var query=_unitOfWork
+                    .VendorSessionRepository
+                    .GetEntities
+                    .Where(e=>e.VendorId==VendorId)
+                    .Skip((Page-1)*Limit)
+                    .Take(Limit);
+            var count = query.Count();
+            var result= query.ToList();
+            var totalPage= (int)Math.Ceiling(count/(double)Limit);
             await _unitOfWork.RollbackAsync();
             return new(true)
             {
-                Data=result.Select(ToModelVendorSession).ToList()
+                Data=result.Select(ToModelVendorSession).ToList(),
+                PageCount=totalPage,
+                CurrentPageIndex=Page
             };
                          
         }
