@@ -52,7 +52,7 @@ public partial class CategoryService : ICategoryService
                 new()
                 {
                 Name=CategoryDto.Name,
-                Description=CategoryDto.Description,
+                Description=CategoryDto.Description??"",
                 Image=CategoryDto.Image,
                 Visiblity=CategoryDto.Visiblity,
                 AdminId=AdminId
@@ -256,7 +256,7 @@ public partial class CategoryService : ICategoryService
                 };
             }
             category.Name=Category.Name;
-            category.Description=Category.Description;
+            category.Description=Category.Description??"";
             category.Visiblity=Category.Visiblity;
             var result=await _unitOfWork.CategoryRepository.Update(category);
             return new(true)

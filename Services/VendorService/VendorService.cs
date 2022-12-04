@@ -140,11 +140,10 @@ public partial class VendorService : IVendorService
             var query=_unitOfWork
                     .VendorSessionRepository
                     .GetEntities
-                    .Where(e=>e.VendorId==VendorId)
-                    .Skip((Page-1)*Limit)
-                    .Take(Limit);
+                    .Where(e=>e.VendorId==VendorId);
             var count = query.Count();
-            var result= query.ToList();
+            var result= query.Skip((Page-1)*Limit)
+                    .Take(Limit).ToList();
             var totalPage= (int)Math.Ceiling(count/(double)Limit);
             await _unitOfWork.RollbackAsync();
             return new(true)
