@@ -1,4 +1,5 @@
 namespace ShoxShop.Dtos.Admin;
+#pragma warning disable
 public class AdminCreateDto
 {
     public string PhoneNumber { get; set; }

@@ -10,7 +10,7 @@ namespace ShoxShop.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class AdminController : ControllerBase
+public partial class AdminController : ControllerBase
 {
     private readonly IJWTService _jWTService;
     private readonly IAdminService _adminService;
@@ -32,12 +32,13 @@ public class AdminController : ControllerBase
             {
                 return NotFound(admin.ErrorMessage);
             }
-            return Ok(admin);
+            return Ok(ToAdminDto(admin.Data!));
         }
-        catch (System.Exception)
+        catch (System.Exception e)
         {
             
-            throw;
+             return StatusCode(StatusCodes.Status500InternalServerError, new { ErrorMessage = e.Message });
         }
     }
+    
 }

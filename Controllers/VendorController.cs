@@ -20,7 +20,7 @@ public class VendorController : ControllerBase
     }
     
     [HttpPost]
-    [Authorize(Roles=Roles.Vendor)]
+    [Authorize(Roles=Roles.Admin)]
     public async Task<IActionResult> CreateVendor(CreateVendorDto vendorDto)
     {
         try
@@ -35,10 +35,18 @@ public class VendorController : ControllerBase
             }
             return Ok(data);
         }
-        catch (System.Exception)
+        catch (System.Exception e)
         {
             
-            throw;
+            return StatusCode(StatusCodes.Status500InternalServerError, new { ErrorMessage = e.Message });
+
         }
     }
+    // [HttpGet]
+    // public Task<IActionResult> UpdateVendor()
+    // {
+    //     return OkResult();
+    // }
+
+
 }

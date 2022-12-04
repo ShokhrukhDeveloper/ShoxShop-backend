@@ -15,8 +15,7 @@ public class CreateVendorDto
     [Required]
     public DateTime DateOfBirth { get; set; }
     [Required]
-    [MaxLength(13)]
-    [MinLength(12)]
+    [Phone]
     public string Phone { get; set; }
     [Required]
     [MaxLength(50)]
