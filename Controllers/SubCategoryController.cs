@@ -167,7 +167,7 @@ public partial class SubCategoryController : ControllerBase
         }
         
     }
-    [HttpPut("{SubCategoryId}")]
+    [HttpPatch("{SubCategoryId}/{Visiblity}")]
     public async Task<IActionResult> ChangeVisiblitySubCategory([FromRoute]ulong SubCategoryId,[FromRoute]bool Visiblity)
     {
         try
