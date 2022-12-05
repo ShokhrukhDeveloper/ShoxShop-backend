@@ -9,6 +9,6 @@ public interface ISubCategoryService
    ValueTask<Result<SubCategoryModel>> DeleteSubCategory(ulong subCategoryId);
    ValueTask<Result<SubCategoryModel>> ChangeVisiblitySubCategory(ulong id,bool Visiblity);
    ValueTask<Result<List<SubCategoryModel>>> GetAllSubCategoriesByCategoryId(ulong id);
-   ValueTask<Result<List<SubCategoryModel>>> GetAllSubCategoriesCategoryId(ulong id,ushort Limit=10,uint Page=1);
-   ValueTask<Result<List<SubCategoryModel>>> GetAllSubCategories(ushort Limit=10,uint Page=1);
+   ValueTask<Result<List<SubCategoryModel>>> GetAllSubCategoriesCategoryIdPagenated(ulong CategoryId,ushort Limit=10,int Page=1);
+   ValueTask<Result<List<SubCategoryModel>>> GetAllSubCategories(ushort Limit=10,int Page=1);
 }
