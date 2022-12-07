@@ -1,9 +1,10 @@
+using ShoxShop.Dtos.Admin;
 using ShoxShop.Model;
 
 namespace ShoxShop.Services.UserService;
 public interface IUserService
 {
-    ValueTask<Result<UserSessionModel>> LoginUser(UserLoginModel userLogin);
+    ValueTask<Result<UserSessionModel>> LoginUser(LoginDto userLogin);
     ValueTask<Result<UserSessionModel>> DeleteUserSession(ulong UserId,ulong SessionId);
     ValueTask<Result<UserModel>> GetUserDataByUserId(ulong UserId);
     // ValueTask<Result<FavoirateProductModel>> CreateFavoirateByUserId(ulong UserId,ulong ProductId);

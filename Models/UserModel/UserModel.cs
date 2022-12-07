@@ -1,4 +1,5 @@
 namespace ShoxShop.Model;
+#pragma warning disable
 public class UserModel
 {
     public ulong UserId { get; set; }

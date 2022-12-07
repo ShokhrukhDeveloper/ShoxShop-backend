@@ -66,8 +66,8 @@ public partial class ProductService : IProductService
             }
             Entities.Product newProduct= new()
             {
-                Name=createProduct.Name,
-                Description=createProduct.Description,
+                Name=createProduct.Name!,
+                Description=createProduct.Description!,
                 Price=createProduct.Price,
                 Quantity=createProduct.Quantity,
                 SubCategoryId=SubCategoryId,
@@ -414,8 +414,8 @@ public partial class ProductService : IProductService
                 };
             }
             
-                product.Name=createProduct.Name;
-                product.Description=createProduct.Description;
+                product.Name=createProduct.Name!;
+                product.Description=createProduct.Description!;
                 product.Price=createProduct.Price;
                 product.Quantity=createProduct.Quantity;
                 product.CategoryId=category.CategoryId;
