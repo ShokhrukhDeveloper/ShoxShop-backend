@@ -9,8 +9,8 @@ public class Category : EntityBase
     public ulong AdminId { get; set; }
     public bool  Visiblity { get; set; }
     public bool? Delete { get; set; }
-    
+    public string Model { get; set; }
     public ICollection<SubCategory> SubCategories { get; set; }
     public ICollection<Product> Products { get; set; }
-
+    
 }

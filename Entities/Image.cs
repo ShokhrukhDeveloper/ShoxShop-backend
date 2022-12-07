@@ -1,4 +1,5 @@
 namespace ShoxShop.Entities;
+#pragma warning disable
 public class Image : EntityBase
 {
    public ulong ImageId { get; set; }

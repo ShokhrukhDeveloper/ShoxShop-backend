@@ -1,5 +1,7 @@
 namespace ShoxShop.Entities;
+#pragma warning disable
 public class LoginUser : EntityBase
+
 {
     public ulong Id { get; set; }
     public string UserName { get; set; }

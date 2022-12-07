@@ -1,5 +1,5 @@
 namespace ShoxShop.Entities;
-
+#pragma warning disable
 public class Admin:EntityBase
 {
     public ulong AdminId { get; set; }

@@ -187,8 +187,7 @@ public partial class SubCategoryController : ControllerBase
         catch (System.Exception e)
         {
         return StatusCode(StatusCodes.Status500InternalServerError, new { ErrorMessage = e.Message });
-        }
-        
+        }    
     }
     
 

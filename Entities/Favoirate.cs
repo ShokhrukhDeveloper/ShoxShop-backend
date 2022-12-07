@@ -1,4 +1,5 @@
 namespace ShoxShop.Entities;
+#pragma warning disable
 public class Favoirate : EntityBase
 {
     public ulong FavoirateId { get; set; }

@@ -1,4 +1,5 @@
 namespace ShoxShop.Entities;
+#pragma warning disable
 public class Product : EntityBase
 {
     public ulong ProductId { get; set; }

@@ -1,4 +1,5 @@
 namespace ShoxShop.Entities;
+#pragma warning disable
 public class User : EntityBase
 {
     public ulong UserId { get; set; }
