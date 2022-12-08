@@ -12,16 +12,12 @@ public class JWTService : IJWTService
     {
         _config=config;
     }
-    public JwtConst? Authenticate(HttpContext httpContext)
+    public JwtConst Authenticate(HttpContext httpContext)
     {
         try
         {
              var identity=httpContext.User.Identity as ClaimsIdentity;
-             if (identity is null)
-             {
-                return null;
-             }
-             var claims=identity.Claims;
+             var claims=identity!.Claims;
              return new()
              {
                 Id=ulong.Parse((claims.FirstOrDefault(w=>w.Type==ClaimTypes.NameIdentifier)
@@ -33,7 +29,7 @@ public class JWTService : IJWTService
         catch (System.Exception)
         {
             
-            return null;
+        throw new Exception();
         }
     }
 

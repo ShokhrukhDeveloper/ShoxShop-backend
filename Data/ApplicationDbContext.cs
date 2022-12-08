@@ -1,7 +1,7 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using ShoxShop.Entities;
-
+#pragma warning disable
 namespace ShoxShop.Data;
 public class ApplicationDbContext :DbContext
 {

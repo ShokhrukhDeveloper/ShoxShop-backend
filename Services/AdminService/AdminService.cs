@@ -152,8 +152,8 @@ public partial class AdminService : IAdminService
              var token=_jWTService.GenerateToken(new(Id:admin.AdminId,Role:Roles.Admin));
              var session= await _unitOFWork.AdminSessionRepository.AddAsync(
                     new(){
-                        AccessToken="token",
-                        RefreshToken="token",
+                        AccessToken=token,
+                        RefreshToken="",
                         AdminId=admin.AdminId,
                         Expires=DateTime.Now,
                         IPAddress=$"{context.Connection.RemoteIpAddress?.ToString()}",

@@ -112,7 +112,7 @@ public partial class AuthController : ControllerBase
           TotalPage=result.PageCount,
           Data=result?.Data?.Select(ToVendorSessionDto).ToList()
         };
-        return Ok();
+        return Ok(paginate);
         
       }
       catch (System.Exception e)

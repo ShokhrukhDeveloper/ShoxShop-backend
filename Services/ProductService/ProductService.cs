@@ -14,7 +14,7 @@ public partial class ProductService : IProductService
         _logger=logger;
         _unitOfWork=unitOfWork;
     }
-    public async ValueTask<Result<ProductModel>> ChangeVisiblityProduct(ulong ProductId, bool Visiblity)
+    public async ValueTask<Result<ProductModel>> ChangeVisiblityProduct(ulong VendorId,ulong ProductId, bool Visiblity)
     {
         try
         {
@@ -24,6 +24,13 @@ public partial class ProductService : IProductService
                 return new(false)
                 {
                     ErrorMessage="Given Id Product not found"
+                };
+            }
+            if (product.VendorId!=VendorId)
+            {
+                return new(false)
+                {
+                    ErrorMessage="You cant change id product  visibility"
                 };
             }
             product.Visiblity=Visiblity;
@@ -74,7 +81,8 @@ public partial class ProductService : IProductService
                 CategoryId=category.CategoryId,
                 VendorId=VendorId,
                 Visiblity=category.Visiblity,
-                Model=category.Model
+                Model=category.Model,
+                CoverImage="cove rimage "
             }; 
 
             var result = await _unitOfWork.ProductRepository.AddAsync(newProduct);
@@ -252,7 +260,7 @@ public partial class ProductService : IProductService
         var query =  _unitOfWork
                     .ProductRepository
                     .GetEntities
-                    .Where(e=>!e.Visiblity&&e.CategoryId==CategoryId);
+                    .Where(e=>e.Visiblity&&e.CategoryId==CategoryId);
         var count=query.Count();
         var result =await query
                     .Skip((Page-1)*Limit)

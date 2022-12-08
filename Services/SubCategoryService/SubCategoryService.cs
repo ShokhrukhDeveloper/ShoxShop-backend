@@ -55,10 +55,10 @@ public partial class SubCategoryService : ISubCategoryService
     {
          try
         {
-            var SubCategory= _unitOfWork
+            var category= _unitOfWork
                     .CategoryRepository
                     .GetById(CategoryId);
-            if (SubCategory is null)
+            if (category is null)
             {
                 return new(false)
                 {
@@ -74,6 +74,9 @@ public partial class SubCategoryService : ISubCategoryService
                             Description=subCategoryDto.Description,
                             AdminId=adminId,
                             CetegoryId=CategoryId,
+                            Visiblity=subCategoryDto.Visiblity,
+                            Image=subCategoryDto.Image??"",
+                            Delete=false,
                         });
             if (result is null)
             {

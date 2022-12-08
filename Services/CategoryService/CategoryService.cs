@@ -55,7 +55,8 @@ public partial class CategoryService : ICategoryService
                 Description=CategoryDto.Description??"",
                 Image=CategoryDto.Image,
                 Visiblity=CategoryDto.Visiblity,
-                AdminId=AdminId
+                AdminId=AdminId,
+                Model="new model"
                 }
             );
             await  _unitOfWork.RollbackAsync();

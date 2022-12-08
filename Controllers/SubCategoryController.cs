@@ -100,7 +100,7 @@ public partial class SubCategoryController : ControllerBase
         }
     }
     [HttpPost("{CategoryId}")]
-    public async Task<IActionResult> CreateSubCategory([FromRoute]ulong CategoryId,[FromQuery]CreateSubCategoryDto  subCategoryDtos)
+    public async Task<IActionResult> CreateSubCategory([FromRoute]ulong CategoryId,[FromBody]CreateSubCategoryDto  subCategoryDtos)
     {
         try
         {
@@ -108,8 +108,8 @@ public partial class SubCategoryController : ControllerBase
             {
                 return NotFound("Model state invalid");
             }
-            var data=_jWTService.Authenticate(HttpContext);
-            var result = await _subCatogryService.CreateSubCategory(data!.Id,CategoryId,subCategoryDtos);
+            // var data=_jWTService.Authenticate(HttpContext);
+            var result = await _subCatogryService.CreateSubCategory(1,CategoryId,subCategoryDtos);
             if(!result.IsSuccess)
             {
                 return  NotFound(result.ErrorMessage);

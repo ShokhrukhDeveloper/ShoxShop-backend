@@ -15,6 +15,5 @@ public partial class SubCategoryService
             Image=category.Image,
             Visiblity=category.Visiblity,
             Delete=category.Delete
-
         };
 }

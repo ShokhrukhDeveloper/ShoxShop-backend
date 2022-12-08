@@ -7,6 +7,7 @@ public class ProductDto
     public string? Description { get; set; }
     public int Quantity { get; set; }
     public decimal Price { get; set; }
-    public bool Visiblity { get; set; }
+    public bool? Visiblity { get; set; }
+    public ulong CategoryId { get; set; }
     public ulong SubCategoryId { get; set; }
 }

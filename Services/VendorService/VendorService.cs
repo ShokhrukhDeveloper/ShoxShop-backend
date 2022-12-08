@@ -1,5 +1,7 @@
+using ShoxShop.Const;
 using ShoxShop.Dtos.Vendor;
 using ShoxShop.Model;
+using ShoxShop.Services.JWT;
 using ShoxShop.UnitOfWork;
 #pragma warning disable
 namespace ShoxShop.Services.Vendor;
@@ -7,11 +9,13 @@ public partial class VendorService : IVendorService
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly ILogger<VendorService> _logger;
+    private readonly IJWTService _jWTService;
 
-    public VendorService(IUnitOfWork unitOfWork, ILogger<VendorService> logger)
+    public VendorService(IUnitOfWork unitOfWork, ILogger<VendorService> logger,IJWTService jWTService)
     {
         _unitOfWork=unitOfWork;
         _logger=logger;
+        _jWTService=jWTService;
     }
     public async ValueTask<Result<VendorModel>> CreateVendor(ulong AdminId,CreateVendorDto createVendor)
     {
@@ -220,6 +224,11 @@ public partial class VendorService : IVendorService
                     ErrorMessage="password inavliad"
                 };
             }
+            var token=new Const.JwtConst(){
+                Id=login.VendorId,
+                Role=Roles.Vendor,
+                };
+            var AccessToken= _jWTService.GenerateToken(token);
             var session= await _unitOfWork
                     .VendorSessionRepository
                     .AddAsync(
@@ -227,7 +236,7 @@ public partial class VendorService : IVendorService
                         {
                             VendorId=login.VendorId,
                             DeviceInfo="Android 12",
-                            AccessToken="AccessToken",
+                            AccessToken=AccessToken,
                             RefreshToken="RefreshToken",
                             IPAddress="12.23.56.55",
                             Expires=DateTime.Now
