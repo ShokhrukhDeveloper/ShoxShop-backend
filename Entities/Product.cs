@@ -9,6 +9,7 @@ public class Product : EntityBase
     public string Description { get; set; }
     public int Quantity { get; set; }
     public decimal Price { get; set; }
+    public decimal? NewPrice { get; set; }
     public bool Visiblity { get; set; }
     public bool? Delete { get; set; } 
     public ulong SubCategoryId { get; set; }

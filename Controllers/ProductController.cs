@@ -193,6 +193,55 @@ public partial class ProductController : ControllerBase
         return StatusCode(StatusCodes.Status500InternalServerError, new { ErrorMessage = e.Message });    
         }
     }
+        [HttpGet("Vendor/{VendorId}")]
+        public async Task<IActionResult> GetAllProductsByVendorId([FromRoute]ulong? VendorId,[FromQuery]ushort Limit=10,[FromQuery]int Page=1)
+    {
+        try
+        {
+           VendorId??=_jWTService.Authenticate(HttpContext)!.Id;
+            var result= await _productService.GetAllProductsByVendorId((ulong)VendorId,Limit,Page);
+            if (!result.IsSuccess)
+            {
+                return NotFound(result.ErrorMessage);
+            }
+            
+            var pagenation= new ResponseBasePagenation<List<ProductDto>>()
+            {
+                TotalPage=result.PageCount,
+                CurrentPage=result.CurrentPageIndex,
+                Data=result.Data!.Select(ToProductDto).ToList()
+            };
+            return Ok(pagenation);  
+        }
+        catch (System.Exception e)
+        {
+        return StatusCode(StatusCodes.Status500InternalServerError, new { ErrorMessage = e.Message });    
+        }
+    }
+        [HttpGet("Search/{SearchText}")]
+        public async Task<IActionResult> SearchProduct(string SearchText,[FromQuery]ushort Limit=10,[FromQuery]int Page=1)
+    {
+        try
+        {
+            var result= await _productService.SearchProducts(SearchText,Limit,Page);
+            if (!result.IsSuccess)
+            {
+                return NotFound(result.ErrorMessage);
+            }
+
+            var pagenation= new ResponseBasePagenation<List<ProductDto>>()
+            {
+                TotalPage=result.PageCount,
+                CurrentPage=result.CurrentPageIndex,
+                Data=result.Data!.Select(ToProductDto).ToList()
+            };
+            return Ok(pagenation);  
+        }
+        catch (System.Exception e)
+        {
+        return StatusCode(StatusCodes.Status500InternalServerError, new { ErrorMessage = e.Message });    
+        }
+    }
     
 
 }
