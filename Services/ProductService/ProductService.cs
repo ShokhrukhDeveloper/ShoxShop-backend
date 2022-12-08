@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using ShoxShop.Const;
 using ShoxShop.Dtos.Product;
 using ShoxShop.Model;
+using ShoxShop.Services.File;
 using ShoxShop.UnitOfWork;
 
 namespace ShoxShop.Services.Product;
@@ -71,6 +73,14 @@ public partial class ProductService : IProductService
                     ErrorMessage="Given Id SubCategory not found"
                 };
             }
+            string? path=null;
+
+            if(createProduct.CoverImage is not null)
+            {
+            FileService fileService= new FileService();
+            path = await fileService.SaveFile(createProduct.CoverImage!,FileConst.ProductImages);
+            }
+
             Entities.Product newProduct= new()
             {
                 Name=createProduct.Name!,
@@ -82,7 +92,7 @@ public partial class ProductService : IProductService
                 VendorId=VendorId,
                 Visiblity=category.Visiblity,
                 Model=category.Model,
-                CoverImage="cove rimage "
+                CoverImage=path
             }; 
 
             var result = await _unitOfWork.ProductRepository.AddAsync(newProduct);

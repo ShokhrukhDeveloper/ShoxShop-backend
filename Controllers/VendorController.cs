@@ -22,6 +22,7 @@ public partial class VendorController : ControllerBase
     
     [HttpPost]
     [Authorize(Roles=Roles.Admin)]
+    // [Consumes("multipart/form-data")]
     public async Task<IActionResult> CreateVendor(CreateVendorDto vendorDto)
     {
         try
@@ -44,6 +45,7 @@ public partial class VendorController : ControllerBase
     
     
     [HttpPut]
+    [Consumes("multipart/form-data")]
     public async Task<IActionResult> UpdateVendor([FromBody]UpdateVendorDto updateVendor)
     {
         try

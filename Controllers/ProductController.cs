@@ -21,13 +21,14 @@ public partial class ProductController : ControllerBase
     }
     
     [HttpPost]
-    [Authorize(Roles=Roles.Vendor)]
-    public async Task<IActionResult> CreateProduct([FromBody]CreateProductDto dto)
+    // [Authorize(Roles=Roles.Vendor)]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> CreateProduct([FromForm]CreateProductDto dto)
     {
         try
         {
-            var data = _jWTService.Authenticate(HttpContext);
-            var result= await _productService.CreateProduct(dto.SubCategoryId,data!.Id,dto);
+            // var data = _jWTService.Authenticate(HttpContext);
+            var result= await _productService.CreateProduct(2,2,dto);
             if (!result.IsSuccess)
             {
                 return NotFound(result.ErrorMessage);
@@ -41,6 +42,7 @@ public partial class ProductController : ControllerBase
     }
     [HttpPut("{ProductId}")]
     [Authorize(Roles=Roles.Vendor)]
+    [Consumes("multipart/form-data")]
     public async Task<IActionResult> UpdateProduct([FromRoute]ulong ProductId,[FromBody]CreateProductDto dto)
     {
         try

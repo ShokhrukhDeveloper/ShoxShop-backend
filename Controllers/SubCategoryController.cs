@@ -100,6 +100,7 @@ public partial class SubCategoryController : ControllerBase
         }
     }
     [HttpPost("{CategoryId}")]
+    // [Consumes("multipart/form-data")]
     public async Task<IActionResult> CreateSubCategory([FromRoute]ulong CategoryId,[FromBody]CreateSubCategoryDto  subCategoryDtos)
     {
         try
@@ -122,6 +123,7 @@ public partial class SubCategoryController : ControllerBase
         }
     }
     [HttpPut("{CategoryId}")]
+    [Consumes("multipart/form-data")]
     public async Task<IActionResult> UpdateSubCategory([FromRoute]ulong SubCategoryId, [FromQuery]CreateSubCategoryDto  subCategoryDtos)
     {
         try

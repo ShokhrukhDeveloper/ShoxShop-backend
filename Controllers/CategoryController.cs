@@ -20,6 +20,7 @@ public partial class CategoryController : ControllerBase
     }
 
     [HttpPost]
+    // [Consumes("multipart/form-data")]
     public async Task<IActionResult> CreateCategory([FromBody]CreateCategoryDto createCategory)
     {
         try

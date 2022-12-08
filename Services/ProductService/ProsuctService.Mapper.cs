@@ -7,6 +7,7 @@ public partial class ProductService
     ProductModel ToProductModel(Entities.Product product)
         => new()
         {
+            Name=product.Name,
             ProductId=product.ProductId,
             Price=product.Price,
             CategoryId=product.CategoryId,

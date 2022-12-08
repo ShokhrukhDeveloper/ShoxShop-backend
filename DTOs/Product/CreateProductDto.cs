@@ -6,8 +6,9 @@ public class CreateProductDto
     [Required]
     [MaxLength(50)]
     [MinLength(2)]
-    public string? Name { get; set; }  
-    public string? CoverImage { get; set; } // must be file
+    public string? Name { get; set; } 
+    public IFormFile? CoverImage { get; set; }
+    
     [MinLength(2)]
     [Required]
     public string? Description { get; set; }
