@@ -61,7 +61,7 @@ public class FileService : IFileService
         return false;
     }
 
-    public ValueTask<string> UpdateFile(IFormFile file, string filePath)
+    public ValueTask<string> UpdateFile(IFormFile file,string folder ,string filePath)
     {
         throw new NotImplementedException();
     }

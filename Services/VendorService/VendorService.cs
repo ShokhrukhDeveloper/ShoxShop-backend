@@ -235,7 +235,7 @@ public partial class VendorService : IVendorService
                         new()
                         {
                             VendorId=login.VendorId,
-                            DeviceInfo="Android 12",
+                            DeviceInfo="Adnad",
                             AccessToken=AccessToken,
                             RefreshToken="RefreshToken",
                             IPAddress="12.23.56.55",

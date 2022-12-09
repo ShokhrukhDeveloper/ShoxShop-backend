@@ -1,5 +1,5 @@
 namespace ShoxShop.Model;
-public class UserSessionModel 
+public class UserSessionModel : ModelBase
 {
     public ulong UserSessionId { get; set; }
     public string? Token { get; set; }
