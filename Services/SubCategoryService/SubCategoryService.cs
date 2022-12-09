@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using ShoxShop.Const;
 using ShoxShop.Dtos.SubCategory;
 using ShoxShop.Model;
+using ShoxShop.Services.File;
 using ShoxShop.UnitOfWork;
 
 namespace ShoxShop.Services.SubCategory;
@@ -65,7 +67,8 @@ public partial class SubCategoryService : ISubCategoryService
                     ErrorMessage="Given subcategory Id not found"
                 };
             }
-            
+            var fileService= new FileService();
+            var image= await fileService.SaveFile(subCategoryDto.Image,FileConst.SubCategoryImages);
             var result=await _unitOfWork
                     .SubCategoryRepository
                     .AddAsync(
@@ -75,7 +78,7 @@ public partial class SubCategoryService : ISubCategoryService
                             AdminId=adminId,
                             CetegoryId=CategoryId,
                             Visiblity=subCategoryDto.Visiblity,
-                            Image=subCategoryDto.Image??"",
+                            Image=image,
                             Delete=false,
                         });
             if (result is null)
@@ -246,7 +249,7 @@ public partial class SubCategoryService : ISubCategoryService
         }
     }
 
-    public async ValueTask<Result<SubCategoryModel>> UpdateSubCategory(ulong subCategoryId, CreateSubCategoryDto subCategory)
+    public async ValueTask<Result<SubCategoryModel>> UpdateSubCategory(ulong subCategoryId, UpdateSubCategoryDto subCategory)
     {
        try
         {
@@ -260,10 +263,17 @@ public partial class SubCategoryService : ISubCategoryService
                     ErrorMessage="Given subcategory Id not found"
                 };
             }
-            subCategoryEntity.Name=subCategory.Name;
-            subCategoryEntity.Description=subCategory.Description;
-            subCategoryEntity.Image=subCategory.Image??"";
-            subCategoryEntity.Visiblity=subCategory.Visiblity;
+            string? image=null;
+            if (subCategory.Image is not null)
+            {
+                var fileService= new FileService();
+            image= await fileService.SaveFile(subCategory.Image,FileConst.SubCategoryImages);
+
+            }
+            subCategoryEntity.Name=subCategory.Name??subCategoryEntity.Name;
+            subCategoryEntity.Description=subCategory.Description??subCategoryEntity.Description;
+            subCategoryEntity.Image=image??subCategoryEntity.Image;
+            subCategoryEntity.Visiblity=subCategory.Visiblity??subCategoryEntity.Visiblity;
             
             var result=await _unitOfWork
                     .SubCategoryRepository

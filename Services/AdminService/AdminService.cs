@@ -3,6 +3,7 @@ using ShoxShop.Const;
 using ShoxShop.Dtos.Admin;
 using ShoxShop.Entities;
 using ShoxShop.Model;
+using ShoxShop.Services.File;
 using ShoxShop.Services.JWT;
 using ShoxShop.UnitOfWork;
 
@@ -27,7 +28,7 @@ public partial class AdminService : IAdminService
                         LastName=adminCreateDto.LastName,
                         BirthDate=adminCreateDto.BirthDate,
                         PhoneNumber=adminCreateDto.PhoneNumber,
-                        Image=adminCreateDto.Image
+                        Image=null
                     }
             );
     }
@@ -72,14 +73,16 @@ public partial class AdminService : IAdminService
         try
         {
             var admin= _unitOFWork.AdminRepository.GetById(AdminId);
-            await _unitOFWork.RollbackAsync();
+           
             if (admin is null)
             {
+                 await _unitOFWork.RollbackAsync();
                 return new(false)
                     {
                         ErrorMessage="Admin data not found"
                     };
             }
+             await _unitOFWork.RollbackAsync();
             return new(true)
                 {
                     Data=ToModelAdmin(admin)
@@ -177,7 +180,49 @@ public partial class AdminService : IAdminService
         catch (System.Exception e)
         {
             
-              _logger.LogError($"Error occured at: {nameof(LoginAdmin)} Error Message: {e.Message}");
+            _logger.LogError($"Error occured at: {nameof(LoginAdmin)} Error Message: {e.Message}");
+            return new(false)
+            {
+                ErrorMessage="Error occured server please contact support "
+            };
+        }
+    }
+
+    public async ValueTask<Result<AdminModel>> UpdateAdmin(ulong AdminId, UpdateAdminData adminCreateDto)
+    {
+        try
+        {
+            var result= _unitOFWork.AdminRepository.GetById(AdminId);
+            if (result is null)
+            {
+            await _unitOFWork.RollbackAsync();
+            return new(true)
+            {
+                ErrorMessage="Given Id of admin not found"
+            };
+            }
+            string? path=null;
+            if (adminCreateDto.Image is not null)
+            {
+                IFileService fileService= new FileService();
+                path = await fileService.SaveFile(adminCreateDto.Image,FileConst.AdminImages);
+            }
+            result.BirthDate=adminCreateDto?.BirthDate;
+            result.LastName=adminCreateDto?.LastName;
+            result.FirstName=adminCreateDto?.FirstName;
+            result.Image=path;
+            
+             
+            var updated=await _unitOFWork.AdminRepository.Update(result);
+            await _unitOFWork.RollbackAsync();
+            return new(true)
+            {
+                Data=ToModelAdmin(updated)
+            };
+        }
+        catch (System.Exception e)
+        {
+            _logger.LogError($"Error occured at: {nameof(LoginAdmin)} Error Message: {e.Message}");
             return new(false)
             {
                 ErrorMessage="Error occured server please contact support "

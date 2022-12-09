@@ -37,7 +37,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 
     public async ValueTask<TEntity> Update(TEntity entity)
     {
-        var entry = _dbSet.Remove(entity);
+        var entry = _dbSet.Update(entity);
         await _dbContext.SaveChangesAsync();
         return entry.Entity;
     }

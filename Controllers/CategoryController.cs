@@ -20,8 +20,8 @@ public partial class CategoryController : ControllerBase
     }
 
     [HttpPost]
-    // [Consumes("multipart/form-data")]
-    public async Task<IActionResult> CreateCategory([FromBody]CreateCategoryDto createCategory)
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> CreateCategory([FromForm]CreateCategoryDto createCategory)
     {
         try
         {
@@ -29,8 +29,14 @@ public partial class CategoryController : ControllerBase
             {
                 return NotFound("Model state is invalid");
             }
-            var data= _jWTService.Authenticate(HttpContext);
-            var category = await _categoryService.CreateCategory(data!.Id,createCategory);
+            // var data= _jWTService.Authenticate(HttpContext);
+            var category = await _categoryService.CreateCategory(
+                1,// data!.Id,
+                createCategory);
+            if (!category.IsSuccess)
+            {
+                return NotFound(category.ErrorMessage);
+            }
             return Ok(ToCategoryDto(category.Data!));
         }
         catch (System.Exception e)
@@ -105,7 +111,8 @@ public partial class CategoryController : ControllerBase
     }
 
     [HttpPut("{CategoryId}")]
-    public async Task<IActionResult> UpdateCategory([FromRoute]ulong CategoryId,[FromBody]CreateCategoryDto update)
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> UpdateCategory([FromRoute]ulong CategoryId,[FromForm]UpdateCategoryDto update)
     {
         try
         {

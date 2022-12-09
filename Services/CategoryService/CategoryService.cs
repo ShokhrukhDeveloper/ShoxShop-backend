@@ -1,5 +1,7 @@
+using ShoxShop.Const;
 using ShoxShop.Dtos.Category;
 using ShoxShop.Model;
+using ShoxShop.Services.File;
 using ShoxShop.UnitOfWork;
 
 namespace ShoxShop.Services.Category;
@@ -48,15 +50,16 @@ public partial class CategoryService : ICategoryService
     {
         try
         {
+            var fileService= new FileService();
+            var image= await fileService.SaveFile(CategoryDto.Image,FileConst.CategoryImages);
             var category =await _unitOfWork.CategoryRepository.AddAsync(
                 new()
                 {
                 Name=CategoryDto.Name,
                 Description=CategoryDto.Description??"",
-                Image=CategoryDto.Image,
+                Image=image,
                 Visiblity=CategoryDto.Visiblity,
                 AdminId=AdminId,
-                Model="new model"
                 }
             );
             await  _unitOfWork.RollbackAsync();
@@ -101,7 +104,7 @@ public partial class CategoryService : ICategoryService
         catch (System.Exception e)
         {
             
-             _logger.LogError($"Error occured  at : {nameof(CreateCategory)} message: {e.Message}");
+             _logger.LogError($"Error occured  at : {nameof(DeleteCategory)} message: {e.Message}");
             return new(false)
             {
                 ErrorMessage="Error Occurred server please contact support"
@@ -241,7 +244,7 @@ public partial class CategoryService : ICategoryService
         }
     }
 
-    public async ValueTask<Result<CategoryModel>> UpdateCategory(ulong CategoryId, CreateCategoryDto Category)
+    public async ValueTask<Result<CategoryModel>> UpdateCategory(ulong CategoryId, UpdateCategoryDto Category)
     {
         try
         {
@@ -256,9 +259,16 @@ public partial class CategoryService : ICategoryService
                     ErrorMessage="Given id category not found"
                 };
             }
-            category.Name=Category.Name;
-            category.Description=Category.Description??"";
-            category.Visiblity=Category.Visiblity;
+            string? image=null;
+            if (Category.Image is not null)
+            {
+            var fileService= new FileService();
+            image= await fileService.SaveFile(Category.Image,FileConst.CategoryImages);
+            }
+            category.Name=Category.Name??category.Name;
+            category.Description=Category.Description??category.Description;
+            category.Visiblity=Category.Visiblity??category.Visiblity;
+            category.Image=image??category.Image;
             var result=await _unitOfWork.CategoryRepository.Update(category);
             return new(true)
             {

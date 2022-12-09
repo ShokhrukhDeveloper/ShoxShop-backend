@@ -4,7 +4,7 @@ namespace ShoxShop.Services.Category;
 public interface ICategoryService
 {
     ValueTask<Result<CategoryModel>> CreateCategory(ulong AdminId,CreateCategoryDto CategoryDto);
-    ValueTask<Result<CategoryModel>> UpdateCategory(ulong CategoryId,CreateCategoryDto Category);
+    ValueTask<Result<CategoryModel>> UpdateCategory(ulong CategoryId,UpdateCategoryDto Category);
     ValueTask<Result<CategoryModel>> DeleteCategory(ulong CategoryId);
     ValueTask<Result<CategoryModel>> ChangeVisiblityCategory(ulong CategoryId,bool Visiblity);
     ValueTask<Result<CategoryModel>> GetCategoryById(ulong CategoryId);

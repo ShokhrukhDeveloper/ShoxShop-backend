@@ -1,6 +1,7 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using ShoxShop.Entities;
+using ShoxShop.Extension;
 #pragma warning disable
 namespace ShoxShop.Data;
 public class ApplicationDbContext :DbContext
@@ -30,4 +31,51 @@ public class ApplicationDbContext :DbContext
    public DbSet<LoginAdmin> LoginAdmins { get; set; }
    public DbSet<LoginVendor> LoginVendors { get; set; }
    public DbSet<LoginUser> LoginUsers { get; set; }
+    public override int SaveChanges()
+   {
+      NameHash();
+      SetDateTime();
+      return base.SaveChanges();
+   }
+   public override Task<int> SaveChangesAsync(CancellationToken cancellationToken=default)
+   {
+      NameHash();
+      SetDateTime();
+      return base.SaveChangesAsync(cancellationToken);
+   }
+   private void SetDateTime()
+   {
+      foreach (var entry in ChangeTracker.Entries<EntityBase>())
+      {
+         if(entry.State == EntityState.Added)
+            {
+                entry.Entity.CreatedAt = DateTime.UtcNow;
+                entry.Entity.UpdatedAt = DateTime.UtcNow;
+            }
+
+            if(entry.State == EntityState.Modified)
+            {
+                entry.Entity.UpdatedAt = DateTime.UtcNow;
+            }
+      }
+   }
+   private void NameHash()
+   {
+      foreach(var entry in ChangeTracker.Entries<LoginUser>())
+        {
+            if(entry.Entity is LoginUser login)
+                login.PasswordHash = login.Password.ToSha256();
+        }
+      foreach(var entry in ChangeTracker.Entries<LoginAdmin>())
+        {
+            if(entry.Entity is LoginAdmin login)
+                login.PasswordHash = login.Password.ToSha256();
+        }
+      foreach(var entry in ChangeTracker.Entries<LoginVendor>())
+        {
+            if(entry.Entity is LoginVendor login)
+                login.PasswordHash = login.Password.ToSha256();
+        }
+   }
+
 }

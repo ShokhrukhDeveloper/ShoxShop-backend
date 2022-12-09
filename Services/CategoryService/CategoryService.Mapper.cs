@@ -14,6 +14,7 @@ public partial class CategoryService
             Delete=category.Delete,
             AdminId=category.AdminId,
             CreatedAt=category.CreatedAt,
-            UpdatedAt=category.UpdatedAt
+            UpdatedAt=category.UpdatedAt,
+            Image=category.Image
         };
 }

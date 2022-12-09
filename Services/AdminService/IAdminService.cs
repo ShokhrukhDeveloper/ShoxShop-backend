@@ -9,6 +9,7 @@ public interface IAdminService
     ValueTask<Result<List<AdminSessionModel>>> GetAllAdminSession(ulong AdminId,ushort Limit,int Page);
     
     ValueTask CreateAdmin(AdminCreateDto adminCreateDto);
+    ValueTask<Result<AdminModel>> UpdateAdmin(ulong AdminId,UpdateAdminData adminCreateDto);
     ValueTask<Result<AdminModel>>  GetAdminData(ulong AdminId);    
 
 }

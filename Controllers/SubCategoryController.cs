@@ -100,8 +100,8 @@ public partial class SubCategoryController : ControllerBase
         }
     }
     [HttpPost("{CategoryId}")]
-    // [Consumes("multipart/form-data")]
-    public async Task<IActionResult> CreateSubCategory([FromRoute]ulong CategoryId,[FromBody]CreateSubCategoryDto  subCategoryDtos)
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> CreateSubCategory([FromRoute]ulong CategoryId,[FromForm]CreateSubCategoryDto  subCategoryDtos)
     {
         try
         {
@@ -110,7 +110,10 @@ public partial class SubCategoryController : ControllerBase
                 return NotFound("Model state invalid");
             }
             // var data=_jWTService.Authenticate(HttpContext);
-            var result = await _subCatogryService.CreateSubCategory(1,CategoryId,subCategoryDtos);
+            var result = await _subCatogryService.CreateSubCategory(
+                1,//data!.Id,
+                CategoryId,
+                subCategoryDtos);
             if(!result.IsSuccess)
             {
                 return  NotFound(result.ErrorMessage);
@@ -122,9 +125,9 @@ public partial class SubCategoryController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, new { ErrorMessage = e.Message });
         }
     }
-    [HttpPut("{CategoryId}")]
+    [HttpPut("{SubCategoryId}")]
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> UpdateSubCategory([FromRoute]ulong SubCategoryId, [FromQuery]CreateSubCategoryDto  subCategoryDtos)
+    public async Task<IActionResult> UpdateSubCategory([FromRoute]ulong SubCategoryId, [FromForm]UpdateSubCategoryDto  subCategoryDtos)
     {
         try
         {
@@ -132,7 +135,7 @@ public partial class SubCategoryController : ControllerBase
             {
                 return NotFound("Model state invalid");
             }
-            var data=_jWTService.Authenticate(HttpContext);
+            // var data=_jWTService.Authenticate(HttpContext);
             var result = await _subCatogryService.UpdateSubCategory(SubCategoryId,subCategoryDtos);
             if(!result.IsSuccess)
             {
@@ -145,7 +148,6 @@ public partial class SubCategoryController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError, new { ErrorMessage = e.Message });
         }
     }
-
     [HttpDelete("{SubCategoryId}")]
     public async Task<IActionResult> DeleteSubCategory([FromRoute]ulong SubCategoryId)
     {

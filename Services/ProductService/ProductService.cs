@@ -91,7 +91,6 @@ public partial class ProductService : IProductService
                 CategoryId=category.CategoryId,
                 VendorId=VendorId,
                 Visiblity=category.Visiblity,
-                Model=category.Model,
                 CoverImage=path
             }; 
 

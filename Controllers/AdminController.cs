@@ -21,13 +21,38 @@ public partial class AdminController : ControllerBase
         _adminService=adminService;
     }
     [HttpGet]
-    [Authorize(Roles=Roles.Admin)]
-    public async Task<IActionResult> Admin()
+    // [Authorize(Roles=Roles.Admin)]
+    public async Task<IActionResult> GetDataAdmin()
     {
         try
         {
             var data= _jWTService.Authenticate(HttpContext);
-            var admin= await _adminService.GetAdminData(data!.Id);
+            var admin= await _adminService.GetAdminData(
+                data!.Id
+                );
+            if (!admin.IsSuccess)
+            {
+                return NotFound(admin.ErrorMessage);
+            }
+            return Ok(ToAdminDto(admin.Data!));
+        }
+        catch (System.Exception e)
+        {
+            
+             return StatusCode(StatusCodes.Status500InternalServerError, new { ErrorMessage = e.Message });
+        }
+    }
+    [HttpPut]
+    [Consumes("multipart/form-data")]
+    [Authorize(Roles=Roles.Admin)]
+    public async Task<IActionResult> UpdateAdmin([FromForm]UpdateAdminData dto)
+    {
+        try
+        {
+            var data= _jWTService.Authenticate(HttpContext);
+            var admin= await _adminService.UpdateAdmin(
+            data!.Id,
+                dto);
             if (!admin.IsSuccess)
             {
                 return NotFound(admin.ErrorMessage);
