@@ -20,6 +20,6 @@ public interface ICommentService
                             string Title,
                             string Message
                             );
-    ValueTask<Result<List<CommentModel>>> GetAllCommentByProductId(ulong ProductId,ushort Limit=10,uint Page=1);
+    ValueTask<Result<List<CommentModel>>> GetAllCommentByProductId(ulong ProductId,ushort Limit=10,int Page=1);
     
 }

@@ -6,4 +6,6 @@ public class CommentModel
     public string? Title { get; set; } 
     public string? Message { get; set; }
     public ulong ProductId { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 }
