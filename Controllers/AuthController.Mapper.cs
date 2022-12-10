@@ -15,6 +15,17 @@ public partial class AuthController
             RefreshToken=model.RefreshToken,
             UpdatedAt=model.UpdatedAt
         };
+    private AdminSessionDto ToUserSessionDto(UserSessionModel model)
+        => new()
+        {
+            AdminSessionId=model.UserSessionId,
+            DeviceInfo=model.DeviceInfo,
+            IPAddress=model.IPAddress,
+            Expires=model.Expires,
+            CareatedAt= model.CreatedAt,
+            RefreshToken=model.RefreshToken,
+            UpdatedAt=model.UpdatedAt
+        };
     private VendorSessionDto ToVendorSessionDto(VendorSessionModel model)
         => new()
         {

@@ -12,12 +12,15 @@ using ShoxShop.UnitOfWork;
 using ShoxShop.Services.SubCategory;
 using ShoxShop.Services.JWT;
 using ShoxShop.Services.Product;
+using System.Text.Json.Serialization;
+using ShoxShop.Services.LikeService;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddSwaggerGen(
     c=>c.SwaggerDoc("v1",new OpenApiInfo{Title="Aspnet Core Api", Version="v1"})
 );
@@ -53,8 +56,8 @@ builder.Services.AddScoped<IAdminService,AdminService>();
 builder.Services.AddScoped<IVendorService,VendorService>();
 builder.Services.AddScoped<ICategoryService,CategoryService>();
 builder.Services.AddScoped<ISubCategoryService,SubCategoryService>();
+builder.Services.AddScoped<ILikeService,LikeService>();
 builder.Services.AddScoped<IProductService,ProductService>();
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
