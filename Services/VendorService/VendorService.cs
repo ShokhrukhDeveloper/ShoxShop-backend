@@ -22,7 +22,7 @@ public partial class VendorService : IVendorService
         try
         {
             
-            var loginCheck = _unitOfWork.LoginVendorRepository.Find(e=>e.PhoneNumber==createVendor.Phone).FirstOrDefault();
+            var loginCheck = _unitOfWork.LoginVendorRepository.Find(e=>e.Phone==createVendor.Phone).FirstOrDefault();
                 if (loginCheck!=null)
                 {
                     return new(false)
@@ -46,7 +46,7 @@ public partial class VendorService : IVendorService
                 new()
                 {
                     Password=createVendor.Password,
-                    PhoneNumber=createVendor.Phone,
+                    Phone=createVendor.Phone,
                     PasswordHash=createVendor.Password,
                     VendorId=vendor.VendorId
                 }
@@ -208,7 +208,7 @@ public partial class VendorService : IVendorService
             var login = _unitOfWork
                     .LoginVendorRepository
                     .GetEntities
-                    .FirstOrDefault(w=>w.PhoneNumber==Phone);
+                    .FirstOrDefault(w=>w.Phone==Phone);
             if (login is null)
             {
                 await _unitOfWork.RollbackAsync();

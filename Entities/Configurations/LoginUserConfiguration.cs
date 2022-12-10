@@ -12,5 +12,14 @@ public class LoginUserConfiguration :   ConfigurationBase<LoginUser>
         builder.HasOne<User>(p=>p.User)
             .WithOne(p=>p.LoginUser).HasForeignKey<LoginUser>(k=>k.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+          builder.Property(e=>e.Phone).
+            IsFixedLength(true).
+            HasMaxLength(13);
+        builder.Property(e=>e.PasswordHash).
+            IsFixedLength(true).
+            HasMaxLength(64);
+        builder.Property(p=>p.Id).
+            HasColumnName("integer")
+            .IsRequired(true);
     }
 }

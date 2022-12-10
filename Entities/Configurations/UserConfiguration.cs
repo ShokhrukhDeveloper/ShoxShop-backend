@@ -17,7 +17,29 @@ public class UserConfiguration : ConfigurationBase<User>
             .WithOne(o=>o.User)
             .HasForeignKey(f=>f.UserId)
             .OnDelete(DeleteBehavior.Cascade);
-        
+        builder.Property(e=>e.Address)
+            .HasColumnType("varchar(255)");
+        builder.Property(e=>e.LastName)
+            .HasColumnType("varchar(50)")
+            .IsRequired(false);
+
+        builder.Property(e=>e.UserName)
+            .HasColumnType("varchar(50)")
+            .IsRequired(false);
+            
+        builder.Property(e=>e.Image)
+            .HasColumnType("varchar(255)")
+            .IsRequired(false);
+            
+        builder.Property(e=>e.FirstName)
+            .HasColumnType("varchar(50)")
+            .IsRequired(true);
+            
+        builder.Property(e=>e.PhoneNumber)
+            .IsFixedLength(true)
+            .HasMaxLength(13)
+            .IsRequired(false);
+            
         
     }
 }

@@ -110,7 +110,6 @@ public partial class UserService : IUserService
                 UserId=result.UserId,
                 Password=dto.Password!,
                 PasswordHash=dto.Password!,
-                UserName=dto.UserName,
                 Phone=user.PhoneNumber
             };
             await _unitOfWork.LoginUserRepository.AddAsync(login);

@@ -13,6 +13,20 @@ public class SubCategoryConfiguration:ConfigurationBase<SubCategory>
             .WithOne(q=>q.SubCategory)
             .HasForeignKey(k=>k.SubCategoryId)
             .OnDelete(DeleteBehavior.Cascade);
+        builder.Property(e=>e.CetegoryId)
+            .HasColumnType("integer")
+            .IsRequired(true);
+        
+        builder.Property(e=>e.Name)
+            .HasColumnType("varchar(50)")
+            .IsRequired(true);
+        
+        builder.Property(e=>e.Description)
+            .HasColumnType("varchar(50)")
+            .IsRequired(false);
+        builder.Property(e=>e.Image)
+            .HasColumnType("varchar(255)")
+            .IsRequired(true);
         
     }
 }
