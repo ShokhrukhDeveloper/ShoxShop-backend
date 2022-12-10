@@ -18,6 +18,13 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         await _dbContext.SaveChangesAsync();
         return entry.Entity;
     }
+    public async ValueTask AddListAsync(IEnumerable<TEntity> entities)
+    {
+        await _dbSet.AddRangeAsync(entities);
+       
+        await _dbContext.SaveChangesAsync();
+        
+    }
 
     public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> expression)
         =>_dbSet.Where(expression);
