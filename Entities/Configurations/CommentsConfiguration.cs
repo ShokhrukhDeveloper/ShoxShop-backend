@@ -11,16 +11,22 @@ public class CommentConfiguration : ConfigurationBase<Comment>
         builder.Property(c=>c.CommentId).
             HasColumnType("integer").
             ValueGeneratedOnAdd();
-        builder.Property(c=>c.UserId).
-            HasColumnType("integer")
-            .IsRequired();
+
+        // builder.HasOne(e=>e.User).
+        //     WithMany(e=>e.Comments).
+        //     HasForeignKey(u=>u.UserId).
+        //     IsRequired();
+
         builder.Property(c=>c.ProductId).
             HasColumnType("integer")
             .IsRequired();
+
         builder.Property(c=>c.Title).
             HasColumnType("varchar(50)");
+
         builder.Property(c=>c.Message).
-            HasColumnType("varchar(255)");
+            HasColumnType("varchar(255)")
+            .IsRequired(true);
     }
     
 }

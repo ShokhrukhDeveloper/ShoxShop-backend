@@ -8,6 +8,9 @@ public class ProductConfiguration : ConfigurationBase<Product>
     {
         base.Configure(builder);
         builder.HasKey(k=>k.ProductId);
+        builder.HasMany<Comment>(p=>p.Comments)
+                .WithOne(e=>e.Product)
+                .HasForeignKey(x=>x.ProductId);
         builder.Property(p=>p.ProductId)
             .HasColumnType("integer")
             .ValueGeneratedOnAdd();

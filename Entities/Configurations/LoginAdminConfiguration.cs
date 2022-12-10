@@ -10,7 +10,7 @@ public class LoginAdminConfiguration :   ConfigurationBase<LoginAdmin>
         base.Configure(builder);
         builder.HasKey(k=>k.Id);
         builder.Property(p=>p.Id).
-            HasColumnName("integer").
+            HasColumnType("integer").
             ValueGeneratedOnAdd();
         builder.HasOne<Admin>(p=>p.Admin)
             .WithOne(p=>p.AdminLogin).HasForeignKey<LoginAdmin>(k=>k.AdminId)

@@ -65,8 +65,8 @@ public partial class ProductService : IProductService
     {
         try
         {
-            var category =_unitOfWork.CategoryRepository.GetById(SubCategoryId);
-            if (category is null)
+            var subCategory =_unitOfWork.SubCategoryRepository.GetById(SubCategoryId);
+            if (subCategory is null)
             {
                 return new(false)
                 {
@@ -88,10 +88,10 @@ public partial class ProductService : IProductService
                 Price=createProduct.Price,
                 Quantity=createProduct.Quantity,
                 SubCategoryId=SubCategoryId,
-                CategoryId=category.CategoryId,
+                CategoryId=subCategory.CetegoryId,
                 VendorId=VendorId,
-                Visiblity=category.Visiblity,
-                CoverImage=path??""
+                Visiblity=createProduct.Visiblity,
+                CoverImage=path??"null"
             }; 
 
             var result = await _unitOfWork.ProductRepository.AddAsync(newProduct);
@@ -410,13 +410,14 @@ public partial class ProductService : IProductService
         }
     }
 
-    public async ValueTask<Result<ProductModel>> UpdateProduct(ulong VendorId,ulong ProductId, CreateProductDto createProduct)
+    public async ValueTask<Result<ProductModel>> UpdateProduct(ulong VendorId,ulong ProductId, UpdateProductDto dto)
     {
         try
         {
             var category =_unitOfWork.ProductRepository.GetById(ProductId);
             if (category is null)
             {
+                await _unitOfWork.RollbackAsync();
                 return new(false)
                 {
                     ErrorMessage="Given Id Product not found"
@@ -430,15 +431,21 @@ public partial class ProductService : IProductService
                     ErrorMessage="Given Id product not found"
                 };
             }
-            
-                product.Name=createProduct.Name!;
-                product.Description=createProduct.Description!;
-                product.Price=createProduct.Price;
-                product.Quantity=createProduct.Quantity;
+                 string? path=null;
+
+            if(dto.CoverImage is not null)
+            {
+            FileService fileService= new FileService();
+            path = await fileService.SaveFile(dto.CoverImage,FileConst.ProductImages);
+            }
+                product.Name=dto.Name??product.Name;
+                product.Description=dto.Description??product.Description;
+                product.Price=dto.Price??product.Price;
+                product.Quantity=dto.Quantity??product.Quantity;
                 product.CategoryId=category.CategoryId;
                 product.VendorId=VendorId;
-                product.Visiblity=category.Visiblity;
-                product.Model=category.Model;
+                product.Visiblity=dto.Visiblity??product.Visiblity;
+                product.CoverImage=path??=product.CoverImage;
              
 
             var result = await _unitOfWork.ProductRepository.Update(product);

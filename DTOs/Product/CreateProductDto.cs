@@ -18,6 +18,4 @@ public class CreateProductDto
     public decimal Price { get; set; }
     [Required]
     public bool Visiblity { get; set; }
-    [Required]
-    public ulong SubCategoryId { get; set; }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShoxShop.Data;
 
@@ -10,9 +11,11 @@ using ShoxShop.Data;
 namespace ShoxShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221210134829_saome")]
+    partial class saome
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
@@ -200,7 +203,7 @@ namespace ShoxShop.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<ulong>("UserId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.HasKey("CommentId");
 
@@ -767,7 +770,7 @@ namespace ShoxShop.Migrations
                         .IsRequired();
 
                     b.HasOne("ShoxShop.Entities.User", "User")
-                        .WithMany("Comments")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -968,8 +971,6 @@ namespace ShoxShop.Migrations
 
             modelBuilder.Entity("ShoxShop.Entities.User", b =>
                 {
-                    b.Navigation("Comments");
-
                     b.Navigation("Favoirates");
 
                     b.Navigation("Location")

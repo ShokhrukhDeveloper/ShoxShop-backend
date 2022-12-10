@@ -15,4 +15,5 @@ public class User : EntityBase
     public LoginUser LoginUser { get; set; }
     public ICollection<Favoirate> Favoirates { get; set; }
     public ICollection<UserSession> UserSessions { get; set; }
+    public ICollection<Comment> Comments {get; set;}
 }

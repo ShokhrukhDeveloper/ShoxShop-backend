@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShoxShop.Data;
 
@@ -10,9 +11,11 @@ using ShoxShop.Data;
 namespace ShoxShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221210135831_relation")]
+    partial class relation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.0");
@@ -183,6 +186,9 @@ namespace ShoxShop.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
+                    b.Property<ulong?>("CommentId1")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
 
@@ -203,6 +209,8 @@ namespace ShoxShop.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("CommentId");
+
+                    b.HasIndex("CommentId1");
 
                     b.HasIndex("ProductId");
 
@@ -760,6 +768,10 @@ namespace ShoxShop.Migrations
 
             modelBuilder.Entity("ShoxShop.Entities.Comment", b =>
                 {
+                    b.HasOne("ShoxShop.Entities.Comment", null)
+                        .WithMany("comments")
+                        .HasForeignKey("CommentId1");
+
                     b.HasOne("ShoxShop.Entities.Product", "Product")
                         .WithMany("Comments")
                         .HasForeignKey("ProductId")
@@ -950,6 +962,11 @@ namespace ShoxShop.Migrations
                     b.Navigation("Products");
 
                     b.Navigation("SubCategories");
+                });
+
+            modelBuilder.Entity("ShoxShop.Entities.Comment", b =>
+                {
+                    b.Navigation("comments");
                 });
 
             modelBuilder.Entity("ShoxShop.Entities.Product", b =>

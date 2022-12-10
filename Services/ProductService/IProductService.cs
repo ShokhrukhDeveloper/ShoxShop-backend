@@ -8,7 +8,7 @@ public interface IProductService
         ulong SubCategoryId,
         ulong VendorId,
         CreateProductDto createProduct);
-    ValueTask<Result<ProductModel>> UpdateProduct(ulong VendorId,ulong ProductId,CreateProductDto createProduct);
+    ValueTask<Result<ProductModel>> UpdateProduct(ulong VendorId,ulong ProductId,UpdateProductDto dto);
     ValueTask<Result<ProductModel>> DeleteProduct(ulong VendorId,ulong ProductId);
     ValueTask<Result<ProductModel>> ChangeVisiblityProduct(ulong VendorId, ulong ProductId,bool Visiblity);
     ValueTask<Result<List<ProductModel>>> GetAllInvisibleProductByCategoryId(ulong CategoryId,ushort Limit=10,int Page=1);

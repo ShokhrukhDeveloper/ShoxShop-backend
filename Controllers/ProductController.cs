@@ -20,15 +20,18 @@ public partial class ProductController : ControllerBase
         _productService=productService;
     }
     
-    [HttpPost]
+    [HttpPost("{SubCategoryId}")]
     // [Authorize(Roles=Roles.Vendor)]
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> CreateProduct([FromForm]CreateProductDto dto)
+    public async Task<IActionResult> CreateProduct([FromRoute]ulong SubCategoryId,[FromForm]CreateProductDto dto)
     {
         try
         {
             // var data = _jWTService.Authenticate(HttpContext);
-            var result= await _productService.CreateProduct(2,2,dto);
+            var result= await _productService.CreateProduct(
+                SubCategoryId,
+            1,//data.Id,
+            dto);
             if (!result.IsSuccess)
             {
                 return NotFound(result.ErrorMessage);
@@ -41,14 +44,16 @@ public partial class ProductController : ControllerBase
         }
     }
     [HttpPut("{ProductId}")]
-    [Authorize(Roles=Roles.Vendor)]
+    // [Authorize(Roles=Roles.Vendor)]
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> UpdateProduct([FromRoute]ulong ProductId,[FromBody]CreateProductDto dto)
+    public async Task<IActionResult> UpdateProduct([FromRoute]ulong ProductId,[FromForm]UpdateProductDto dto)
     {
         try
         {
-            var data = _jWTService.Authenticate(HttpContext);
-            var result= await _productService.UpdateProduct(data!.Id,ProductId,dto);
+            // var data = _jWTService.Authenticate(HttpContext);
+            var result= await _productService.UpdateProduct(
+                1,// data!.Id,
+                ProductId,dto);
             if (!result.IsSuccess)
             {
                 return NotFound(result.ErrorMessage);
