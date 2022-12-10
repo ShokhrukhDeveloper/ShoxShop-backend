@@ -14,6 +14,7 @@ using ShoxShop.Services.JWT;
 using ShoxShop.Services.Product;
 using System.Text.Json.Serialization;
 using ShoxShop.Services.LikeService;
+using ShoxShop.Services.CommentService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +59,7 @@ builder.Services.AddScoped<ICategoryService,CategoryService>();
 builder.Services.AddScoped<ISubCategoryService,SubCategoryService>();
 builder.Services.AddScoped<ILikeService,LikeService>();
 builder.Services.AddScoped<IProductService,ProductService>();
+builder.Services.AddScoped<ICommentService,CommentService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
