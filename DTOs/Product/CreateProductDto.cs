@@ -1,12 +1,12 @@
 using System.ComponentModel.DataAnnotations;
-
+#pragma warning disable
 namespace ShoxShop.Dtos.Product;
 public class CreateProductDto
 {
     [Required]
     [MaxLength(50)]
     [MinLength(2)]
-    public string? Name { get; set; } 
+    public string Name { get; set; } 
     public IFormFile? CoverImage { get; set; }
     
     [MinLength(2)]

@@ -91,7 +91,7 @@ public partial class ProductService : IProductService
                 CategoryId=category.CategoryId,
                 VendorId=VendorId,
                 Visiblity=category.Visiblity,
-                CoverImage=path
+                CoverImage=path??""
             }; 
 
             var result = await _unitOfWork.ProductRepository.AddAsync(newProduct);

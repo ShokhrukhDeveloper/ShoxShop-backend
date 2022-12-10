@@ -8,9 +8,9 @@ public partial class CategoryController
     CategoryDto ToCategoryDto(CategoryModel model)
         => new()
         {
-            Image=model.Image??"",
+            Image=model.Image,
             Name=model.Name,
-            Description=model.Description,
+            Description=model.Description??"",
             CategoryId=model.CategoryId,
             CreatedAt=model.CreatedAt,
             UpdatedAt=model.UpdatedAt
