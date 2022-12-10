@@ -1,6 +1,8 @@
 using ShoxShop.Const;
 using ShoxShop.Dtos.Vendor;
+using ShoxShop.Extension;
 using ShoxShop.Model;
+using ShoxShop.Services.File;
 using ShoxShop.Services.JWT;
 using ShoxShop.UnitOfWork;
 #pragma warning disable
@@ -30,6 +32,12 @@ public partial class VendorService : IVendorService
                         ErrorMessage="This Phone number already registred"
                     };
                 }
+                 string? image=null;
+            if (createVendor.Image is not null)
+            {
+            var fileService= new FileService();
+            image= await fileService.SaveFile(createVendor.Image,FileConst.VendorImages);  
+            }
             var vendor= await _unitOfWork.VendorRepository.AddAsync(
                 new()
                 {
@@ -39,7 +47,8 @@ public partial class VendorService : IVendorService
                     DateOfBirth=createVendor.DateOfBirth,
                     AdminId=AdminId,
                     MarketName=createVendor.MarketName,
-                    Phone=createVendor.Phone
+                    Phone=createVendor.Phone, 
+                    Image=image
                 }
             );
             var login = _unitOfWork.LoginVendorRepository.AddAsync(
@@ -228,6 +237,8 @@ public partial class VendorService : IVendorService
                 Id=login.VendorId,
                 Role=Roles.Vendor,
                 };
+            Random random= new Random();
+            string  RefreshToken=DateTime.Now.ToString().ToSha256();
             var AccessToken= _jWTService.GenerateToken(token);
             var session= await _unitOfWork
                     .VendorSessionRepository
@@ -235,11 +246,11 @@ public partial class VendorService : IVendorService
                         new()
                         {
                             VendorId=login.VendorId,
-                            DeviceInfo="Adnad",
+                            DeviceInfo="Android||Chrome",
                             AccessToken=AccessToken,
-                            RefreshToken="RefreshToken",
-                            IPAddress="12.23.56.55",
-                            Expires=DateTime.Now
+                            RefreshToken=RefreshToken,
+                            IPAddress="192.168.0.0",
+                            Expires=DateTime.Now.AddMonths(6)
                         }
                     );
             return new(true)
@@ -300,30 +311,33 @@ public partial class VendorService : IVendorService
             var vendor= _unitOfWork.VendorRepository.GetById(VendorId);
             if(vendor is null)
             {
+                await _unitOfWork.RollbackAsync();
                 return new(false)
                 {
-                    ErrorMessage="Vendor NotFound"
+                    ErrorMessage="Vendor Not Found"
                 };
-                await _unitOfWork.RollbackAsync();
+                
             }
-             var result = await _unitOfWork.VendorRepository.AddAsync(
-                new()
-                {
-                    LastName=createVendor.LastName,
-                    FirstName=createVendor.FirstName,
-                    Address=createVendor.Address,
-                    DateOfBirth=createVendor.DateOfBirth,
-                    MarketName=createVendor.MarketName,
-                }
-            );
+            string? image=null;
+            if (createVendor.Image is not null)
+            {
+            var fileService= new FileService();
+            image = await fileService.SaveFile(createVendor.Image,FileConst.VendorImages);  
+            }
+            vendor.LastName=createVendor.LastName??vendor.LastName;
+            vendor.FirstName=createVendor.FirstName??vendor.FirstName;
+            vendor.Address=createVendor.Address??vendor.Address;
+            vendor.DateOfBirth=createVendor.DateOfBirth??vendor.DateOfBirth;
+            vendor.MarketName=createVendor.MarketName??vendor.MarketName;
+            vendor.Image=image??vendor.Image;
+            vendor.Email=createVendor.Email??vendor.Email;
+             var result = await _unitOfWork.VendorRepository.Update(vendor);
             await _unitOfWork.RollbackAsync();
             return new(true)
             {
                 Data=ToModelVendor(result)
             };
             
-
-           
         }
         catch (System.Exception e)
         {

@@ -18,7 +18,9 @@ public partial class VendorService
             DateOfBirth=vendor.DateOfBirth,
             Email=vendor.Email,
             Phone=vendor.Phone,
-            Blocked=vendor.Blocked
+            Blocked=vendor.Blocked,
+            Image=vendor.Image,
+            
         };
     VendorSessionModel ToModelVendorSession(Entities.VendorSession session)
         => new()

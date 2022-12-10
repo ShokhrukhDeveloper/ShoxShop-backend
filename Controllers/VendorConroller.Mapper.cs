@@ -17,6 +17,7 @@ public partial class VendorController
             DateOfBirth=model.DateOfBirth,
             Address=model.Address,
             Email=model.Email,
-            Phone=model.Phone 
+            Phone=model.Phone,
+            Image=model.Image
         };
 }

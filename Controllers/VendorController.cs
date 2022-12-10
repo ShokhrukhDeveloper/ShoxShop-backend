@@ -21,14 +21,16 @@ public partial class VendorController : ControllerBase
     }
     
     [HttpPost]
-    [Authorize(Roles=Roles.Admin)]
-    // [Consumes("multipart/form-data")]
-    public async Task<IActionResult> CreateVendor(CreateVendorDto vendorDto)
+    // [Authorize(Roles=Roles.Admin)]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> CreateVendor([FromForm]CreateVendorDto vendorDto)
     {
         try
         {
-            var data=_jWTService.Authenticate(HttpContext)!;
-            var result = await _vendorService.CreateVendor(data.Id,vendorDto);
+            // var data=_jWTService.Authenticate(HttpContext)!;
+            var result = await _vendorService.CreateVendor(
+                1// data.Id
+                ,vendorDto);
             if (!result.IsSuccess)
             {
                 return NotFound(result.ErrorMessage);
@@ -46,12 +48,14 @@ public partial class VendorController : ControllerBase
     
     [HttpPut]
     [Consumes("multipart/form-data")]
-    public async Task<IActionResult> UpdateVendor([FromBody]UpdateVendorDto updateVendor)
+    public async Task<IActionResult> UpdateVendor([FromForm]UpdateVendorDto updateVendor)
     {
         try
         {
-            var data=_jWTService.Authenticate(HttpContext)!;
-            var result= await _vendorService.UpdateVendor(data.Id, updateVendor);
+            // var data=_jWTService.Authenticate(HttpContext)!;
+            var result= await _vendorService.UpdateVendor(
+                1// data.Id
+                , updateVendor);
             if (!result.IsSuccess)
             {
                 return NotFound(result.ErrorMessage);
@@ -65,7 +69,7 @@ public partial class VendorController : ControllerBase
     }
 
     [HttpGet("{Id}")]
-    [Authorize(Roles =Roles.Admin)]
+    // [Authorize(Roles =Roles.Admin)]
     public async Task<IActionResult> GetById(ulong Id)
     {
         try
@@ -84,7 +88,7 @@ public partial class VendorController : ControllerBase
         }
     }
     [HttpGet("All")]
-    [Authorize(Roles =Roles.Admin)]
+    // [Authorize(Roles =Roles.Admin)]
     public async Task<IActionResult> GetAllVendor([FromQuery]ushort Limit=10,[FromQuery]int Page=1)
     {
         try

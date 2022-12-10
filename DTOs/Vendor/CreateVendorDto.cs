@@ -8,6 +8,7 @@ public class CreateVendorDto
     [MaxLength(20)]
     [MinLength(2)]
     public string FirstName { get; set; }
+    public IFormFile? Image { get; set; }
     [Required]
     [MinLength(2)]
     [MaxLength(20)]

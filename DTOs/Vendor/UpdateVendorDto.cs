@@ -6,31 +6,26 @@ public class UpdateVendorDto
 {
     [MaxLength(length:20)]
     [MinLength(2)]
-    [Required]
-    public string FirstName { get; set; }
+    public string? FirstName { get; set; }
     [MaxLength(length:20)]
     [MinLength(2)]
-    [Required]
-    public string LastName { get; set; }
+    public string? LastName { get; set; }
 
-    [Required]
     public DateTime? DateOfBirth { get; set; }
     
     [EmailAddress]
-    [Required]
     public string? Email { get; set; }
     
-    [Required]
     [Phone]
-    public string Phone { get; set; }
+    public string? Phone { get; set; }
     
     [MinLength(3)]
     public string? Address { get; set; }
     
-    public string? Image { get; set; }
+    public IFormFile? Image { get; set; }
     [MinLength(2)]
     [MaxLength(50)]
-    public string MarketName { get; set; }
+    public string? MarketName { get; set; }
     public double? Latitude { get; set; }
     public double? Longitude { get; set; }
 }
