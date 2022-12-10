@@ -40,7 +40,5 @@ public class VendorConfiguration : ConfigurationBase<Vendor>
             .IsFixedLength(true)
             .HasMaxLength(13)
             .IsRequired(false);
-        
-        
     }
 }
