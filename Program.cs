@@ -16,6 +16,7 @@ using System.Text.Json.Serialization;
 using ShoxShop.Services.LikeService;
 using ShoxShop.Services.CommentService;
 using ShoxShop.Services.Image;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -79,7 +80,15 @@ if (app.Environment.IsDevelopment())
 }
 Seed.Init(app);
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles(
+    new StaticFileOptions
+    {
+        FileProvider= new PhysicalFileProvider(
+            Path.Combine(builder.Environment.ContentRootPath,"StaticFiles")
+        ),
+        RequestPath="/Uploads"
+    }
+);
 app.UseAuthentication();
 app.UseAuthorization();
 
