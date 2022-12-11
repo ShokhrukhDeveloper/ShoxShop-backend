@@ -12,5 +12,5 @@ public interface IUserService
     ValueTask<Result<List<UserSessionModel>>> GetUserSessionByUserId(ulong UserId,ushort Limit=10,int Page=10); 
     ValueTask<Result<ProductModel>> CreateFavoirateByUserId(ulong UserId,ulong ProductId);
     ValueTask<Result<List<ProductModel>>> GetFavoiratesByUserId(ulong UserId, ushort Limit=10,int Page=10);
-    ValueTask<Result<bool>> DeleteFavoirateById(ulong FavoirateId,ulong UserId);
+    ValueTask<Result<bool>> DeleteFavoirateById(ulong ProductId,ulong UserId);
 }

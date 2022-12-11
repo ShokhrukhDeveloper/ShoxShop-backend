@@ -129,11 +129,11 @@ public partial class UserService : IUserService
         }
     }
 
-    public async ValueTask<Result<bool>> DeleteFavoirateById(ulong FavoirateId, ulong UserId)
+    public async ValueTask<Result<bool>> DeleteFavoirateById(ulong ProductId, ulong UserId)
     {
         try
         {
-            var Exists= _unitOfWork.FavoirateRepository.Find(e=>e.FavoirateId==FavoirateId&&UserId==e.UserId).FirstOrDefault();
+            var Exists= _unitOfWork.FavoirateRepository.Find(e=>e.ProductId==ProductId&&UserId==e.UserId).FirstOrDefault();
             if (Exists is null)
             {
                 return new(false)
@@ -177,10 +177,13 @@ public partial class UserService : IUserService
                 Data=ToUserSessionModel(session)
             };
         }
-        catch (System.Exception)
+        catch (System.Exception e)
         {
-            
-            throw;
+        _logger.LogError($"Error occured at: {nameof(CreateFavoirateByUserId)}  ErrorMessage: {e.Message}");
+            return new(false)
+            {
+                ErrorMessage="Error occurred server please contact support"
+            };
         }
     }
 
@@ -188,18 +191,29 @@ public partial class UserService : IUserService
     {
         try
         {
-            var Exists= _unitOfWork.FavoirateRepository.Find(e=>UserId==e.UserId);
-            if (Exists is null)
+            var query = _unitOfWork.
+                    FavoirateRepository.
+                    GetEntities.
+                    Where(s=>s.UserId==UserId)
+                    .Select(e=>e.Product);//.ToListAsync();
+                var count=query.Count();
+                var totalPage=(int)Math.Ceiling(count/(double)Limit);
+            var result=await query.ToListAsync();
+            
+            if (result is null)
             {
                 return new(false)
                 {
                     ErrorMessage="Given favoirate Id not found"
                 };
             }
+
             await _unitOfWork.RollbackAsync();
             return new(true)
             {
-                Data=new()
+                PageCount=totalPage,
+                CurrentPageIndex=Page,
+                Data=result.Select(ToProductModel).ToList()
             };
         }
         catch (System.Exception e)

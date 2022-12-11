@@ -17,6 +17,7 @@ using ShoxShop.Services.LikeService;
 using ShoxShop.Services.CommentService;
 using ShoxShop.Services.Image;
 using Microsoft.Extensions.FileProviders;
+using ShoxShop.Services.UserService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,7 +63,7 @@ builder.Services.AddScoped<ISubCategoryService,SubCategoryService>();
 builder.Services.AddScoped<ILikeService,LikeService>();
 builder.Services.AddScoped<IProductService,ProductService>();
 builder.Services.AddScoped<ICommentService,CommentService>();
-builder.Services.AddScoped<IImageService,ImageService>();
+builder.Services.AddScoped<IUserService,UserService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
