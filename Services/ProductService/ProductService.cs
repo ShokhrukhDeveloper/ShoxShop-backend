@@ -380,6 +380,51 @@ public partial class ProductService : IProductService
         }
     }
 
+    public async ValueTask<Result<ProductInfoModel>> ProductInfo(ulong ProductId)
+    {
+        try
+        {
+            var query=await _unitOfWork.
+                    ProductRepository.
+                    GetEntities.
+                    Include(w=>w.SubCategory).
+                    Include(w=>w.Likes).
+                    Include(w=>w.Comments).
+                    Include(s=>s.Images).
+                    Include(w=>w.Vendor).
+                    FirstOrDefaultAsync(d=>d.ProductId==ProductId);
+            if(query is null)
+            {
+                return new(false)
+                {
+                    ErrorMessage="Given Id product not found"
+                };
+            }
+            return new(true)
+            {
+                Data=new()
+                {
+                    Name=query.Name,
+                    ProductId=query.ProductId,
+                    Price=query.Price,
+                    Description=query.Description,
+                    CoverImage=query.CoverImage,
+                    Visiblity=query.Visiblity,
+                    LikeCount=query.Likes?.Count()??0,
+                    SubCategory=ToSubCategoryModel(query.SubCategory!),
+                    Vendor=ToModelVendor(query.Vendor),   
+                    Images=query?.Images?.Select(ToImageModel).ToList() 
+                    
+                }
+            };
+        }
+        catch (System.Exception)
+        {
+            
+            throw;
+        }
+    }
+
     public async ValueTask<Result<List<ProductModel>>> SearchProducts(string SearchText, ushort Limit = 10, int Page = 1)
     {
         try

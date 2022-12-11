@@ -7,7 +7,7 @@ namespace ShoxShop.Data;
 public class ApplicationDbContext :DbContext
 {
    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
-   { } 
+   {} 
    protected override void OnModelCreating(ModelBuilder modelBuilder)
    {
     base.OnModelCreating(modelBuilder);
@@ -23,7 +23,7 @@ public class ApplicationDbContext :DbContext
    public DbSet<Like> Likes { get; set; }
    public DbSet<Location> Locations { get; set; }
    public DbSet<Product> Products { get; set; }
-   public DbSet<SubCategory> SeubCategories { get; set; }
+   public DbSet<SubCategory> SubCategories { get; set; }
    public DbSet<User> Users { get; set; }
    public DbSet<UserSession> UserSessions { get; set; }
    public DbSet<Vendor> Vendors { get; set; }
@@ -50,7 +50,7 @@ public class ApplicationDbContext :DbContext
          if(entry.State == EntityState.Added)
             {
                 entry.Entity.CreatedAt = DateTime.UtcNow;
-                entry.Entity.UpdatedAt = DateTime.UtcNow;
+                entry.Entity.UpdatedAt = null;
             }
 
             if(entry.State == EntityState.Modified)

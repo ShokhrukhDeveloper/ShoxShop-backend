@@ -16,7 +16,7 @@ public class ImageService : IImageService
         _unitOfWork=unitOfWork;
         _logger=logger;
     }
-    public async ValueTask<Result<bool>> CreateImages(ulong VendorId, ulong ProductId, UploadImageDto dto)
+    public async ValueTask<Result<ImageModel>> CreateImages(ulong VendorId, ulong ProductId, UploadImageDto dto)
     {
         try
         {
@@ -37,18 +37,17 @@ public class ImageService : IImageService
             }
 
             var fileService= new FileService();
-            var images= await fileService.SaveFilesList(dto.images.ToList(),FileConst.ProductImages);
-            var imageEntities=images.Select(
-                e=>new Entities.Image(){
+            var images= await fileService.SaveFile(dto.images,FileConst.ProductImages);
+            var imageEntities=new Entities.Image(){
                             Title=dto.Title??"<|>",
                             Desription=dto.Description,
-                            ImageUrl=e,
+                            ImageUrl=images,
                             ProductId=ProductId,
-                            }    ).ToList();
-            await _unitOfWork.ImageRepository.AddListAsync(imageEntities);
+                            };
+            var result=await _unitOfWork.ImageRepository.AddAsync(imageEntities);
             return new(true)
             {
-                Data=true
+                Data=ToImageModel(result)
             };
         }
         catch (System.Exception e)

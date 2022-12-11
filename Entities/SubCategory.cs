@@ -11,7 +11,7 @@ public class SubCategory: EntityBase
     public bool? Delete { get; set; }
     
     public ulong CetegoryId { get; set; }
-    public Category Category { get; set; }
-    public List<Product> Products { get; set; }
+    public Category? Category { get; set; }
+    public List<Product>? Products { get; set; }
     
 }

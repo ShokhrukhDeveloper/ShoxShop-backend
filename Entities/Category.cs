@@ -10,7 +10,7 @@ public class Category : EntityBase
     public bool  Visiblity { get; set; }
     public bool? Delete { get; set; }
 
-    public ICollection<SubCategory> SubCategories { get; set; }
-    public ICollection<Product> Products { get; set; }
+    public ICollection<SubCategory>? SubCategories { get; set; }
+    public ICollection<Product>? Products { get; set; }
     
 }

@@ -19,12 +19,19 @@ public class FormController : ControllerBase
 
     [HttpGet]
     [Produces("application/json")]
-    public IActionResult FormFiles(ulong forma=1)
+    public async Task<IActionResult> FormFiles(ulong forma=1)
     {
-       var result= _dbContext.Admins.
-                Include(e=>e.Vendors)
-                .Where(e=>e.AdminId==forma).FirstOrDefault(); 
-        return  Ok(result);
+        _dbContext.ChangeTracker.LazyLoadingEnabled = true;
+        var query=await _unitOfWork.
+                    ProductRepository.
+                    GetEntities.
+                    Include(w=>w.SubCategory).
+                    Include(w=>w.Likes).
+                    Include(w=>w.Comments).
+                    Include(s=>s.Images).
+                    Include(w=>w.Vendor).
+                    FirstOrDefaultAsync(d=>d.ProductId==forma);
+        return  Ok(query);
     }
 }
 public class Forma

@@ -20,7 +20,7 @@ public class LikeController : ControllerBase
     {
         try
         {
-            var data= _jWTService.Authenticate(HttpContext)!;
+            // var data= _jWTService.Authenticate(HttpContext)!;
             var result= await _likeService.Like(
                 1//data.Id
                 ,

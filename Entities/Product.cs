@@ -13,13 +13,13 @@ public class Product : EntityBase
     public bool Visiblity { get; set; }
     public bool? Delete { get; set; } 
     public ulong SubCategoryId { get; set; }
-    public SubCategory SubCategory { get; set; }
+    public SubCategory? SubCategory { get; set; }
 
     public ulong CategoryId { get; set; }
-    public Category Category { get; set; }
+    public Category? Category { get; set; }
     public ulong VendorId { get; set; }
     public Vendor Vendor { get; set; }
-    public ICollection<Like> Likes { get; set; }
-    public ICollection<Comment> Comments { get; set; }
-    public ICollection<Image> Images { get; set; }
+    public ICollection<Like>? Likes { get; set; }
+    public virtual ICollection<Comment>? Comments { get; set; }
+    public ICollection<Image>? Images { get; set; }
 }

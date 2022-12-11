@@ -13,10 +13,16 @@ public class UserConfiguration : ConfigurationBase<User>
             .WithOne(q=>q.User)
             .HasForeignKey(k=>k.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+        
         builder.HasMany<Favoirate>(m=>m.Favoirates)
             .WithOne(o=>o.User)
             .HasForeignKey(f=>f.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.SetNull);
+        builder.HasMany<Comment>(m=>m.Comments)
+            .WithOne(o=>o.User)
+            .HasForeignKey(f=>f.UserId)
+            .OnDelete(DeleteBehavior.SetNull);
+            
         builder.Property(e=>e.Address)
             .HasColumnType("varchar(255)");
         builder.Property(e=>e.LastName)

@@ -27,14 +27,14 @@ public partial class CommentService : ICommentService
                     ErrorMessage="Given Id Product not Found"
                 };
             } 
-            var comment= new Comment()
+            
+            var newComment= await _unitOfWork.CommentRepository.AddAsync(new ()
             {
                 Title=Title,
                 Message=Message,
                 ProductId=ProductId,
-                UserId=UserId
-            };
-            var newComment= await _unitOfWork.CommentRepository.AddAsync(comment);
+                UserId=UserId,
+            });
             return new(true)
             {
                 Data=ToCommentModel(newComment)

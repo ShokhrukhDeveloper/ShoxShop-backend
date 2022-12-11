@@ -85,14 +85,16 @@ public partial class ProductController : ControllerBase
         }
     }
     [HttpPatch("{ProductId}/{Visibility}")]
-    [Authorize(Roles = Roles.Vendor)]
+    // [Authorize(Roles = Roles.Vendor)]
     public async Task<IActionResult> ChangeVisibilityProduct([FromRoute]ulong ProductId,[FromRoute]bool Visibility)
     {
         try
         {
-            var data = _jWTService.Authenticate(HttpContext);
+            // var data = _jWTService.Authenticate(HttpContext);
             
-            var result= await _productService.ChangeVisiblityProduct(data!.Id,ProductId,Visibility);
+            var result= await _productService.ChangeVisiblityProduct(
+               1, //data!.Id,
+                ProductId,Visibility);
             if (!result.IsSuccess)
             {
                 return NotFound(result.ErrorMessage);
@@ -243,6 +245,25 @@ public partial class ProductController : ControllerBase
                 Data=result.Data!.Select(ToProductDto).ToList()
             };
             return Ok(pagenation);  
+        }
+        catch (System.Exception e)
+        {
+        return StatusCode(StatusCodes.Status500InternalServerError, new { ErrorMessage = e.Message });    
+        }
+    }
+        [HttpGet("{ProductId}")]
+        public async Task<IActionResult> GetProductInfoById(ulong ProductId)
+    {
+        try
+        {
+            var result= await _productService.ProductInfo(ProductId);
+            if (!result.IsSuccess)
+            {
+                return NotFound(result.ErrorMessage);
+            }
+
+            
+            return Ok(result.Data);  
         }
         catch (System.Exception e)
         {
