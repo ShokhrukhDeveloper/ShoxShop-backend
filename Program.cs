@@ -64,11 +64,8 @@ builder.Services.AddScoped<ILikeService,LikeService>();
 builder.Services.AddScoped<IProductService,ProductService>();
 builder.Services.AddScoped<ICommentService,CommentService>();
 builder.Services.AddScoped<IUserService,UserService>();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 var app = builder.Build();
 
@@ -87,7 +84,7 @@ app.UseStaticFiles(
         FileProvider= new PhysicalFileProvider(
             Path.Combine(builder.Environment.ContentRootPath,"StaticFiles")
         ),
-        RequestPath="/Uploads"
+        RequestPath=" "
     }
 );
 app.UseAuthentication();
