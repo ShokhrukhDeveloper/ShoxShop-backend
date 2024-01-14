@@ -31,7 +31,7 @@ public class ApplicationDbContext :DbContext
    public DbSet<LoginAdmin> LoginAdmins { get; set; }
    public DbSet<LoginVendor> LoginVendors { get; set; }
    public DbSet<LoginUser> LoginUsers { get; set; }
-    public override int SaveChanges()
+   public override int SaveChanges()
    {
       NameHash();
       SetDateTime();
